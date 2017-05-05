@@ -1,0 +1,23 @@
+<h1>Here you can see ONE experience</h1>
+
+<div class="row">
+  <div class="col-xs-2">Name</div>
+  <div class="col-xs-2">Category</div>
+  <div class="col-xs-1">Location</div>
+  <div class="col-xs-2">Image</div>
+  <div class="col-xs-1">Price</div>
+  <div class="col-xs-2">Description</div>
+  <div class="col-xs-1">Duration</div>
+  <div class="col-xs-1">Availability</div>
+</div>
+
+<div class="row">
+  <div class="col-xs-2"><%= result.name %></div>
+  <div class="col-xs-2"><%= result.categories[0] %></div>
+  <div class="col-xs-1"><%= result.location.city %> <%= result.location.street %></div>
+  <div class="col-xs-2"><img src="<%= result.images[0] %>"></div>
+  <div class="col-xs-1"><%= result.price %></div>
+  <div class="col-xs-2"><%= result.description %></div>
+  <div class="col-xs-1"><%= result.duration %></div>
+  <div class="col-xs-1"><%= result.availability %></div>
+</div>

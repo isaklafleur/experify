@@ -13,6 +13,7 @@ const app = express();
 const index = require('./routes/index');
 const users = require('./routes/users');
 const authentication = require('./routes/auth');
+const experiences = require('./routes/experiences');
 
 // Require Helper files
 const auth = require('./helpers/auth');
@@ -53,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/', authentication);
+app.use('/experiences', experiences);
 
 // adding our own middleware so all pages can access currentUser
 app.use((req, res, next) => {

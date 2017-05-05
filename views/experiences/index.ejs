@@ -1,0 +1,27 @@
+<h1>Here you can see ALL experiences</h1>
+
+<%= result %>
+
+<div class="row">
+  <div class="col-xs-2">Name</div>
+  <div class="col-xs-2">Category</div>
+  <div class="col-xs-1">Location</div>
+  <div class="col-xs-2">Image</div>
+  <div class="col-xs-1">Price</div>
+  <div class="col-xs-2">Description</div>
+  <div class="col-xs-1">Duration</div>
+  <div class="col-xs-1">Availability</div>
+</div>
+
+<div class="row">
+<% result.forEach(experience => { %>
+  <div class="col-xs-2"><a href="/experiences/<%= experience._id %>/"><%= experience.name %></a></div>
+  <div class="col-xs-2"><%= experience.categories[0] %></div>
+  <div class="col-xs-1"><%= experience.location.city %> <%= experience.location.street %></div>
+  <div class="col-xs-2"><img src="<%= experience.images[0] %>"></div>
+  <div class="col-xs-1"><%= experience.price %></div>
+  <div class="col-xs-2"><%= experience.description %></div>
+  <div class="col-xs-1"><%= experience.duration %></div>
+  <div class="col-xs-1"><%= experience.availability %></div>
+<% }); %>
+</div>

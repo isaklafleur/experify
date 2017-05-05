@@ -1,6 +1,5 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const ensureLogin = require('connect-ensure-login');
 const passport = require('passport');
 
 const router = express.Router();
@@ -11,10 +10,6 @@ const User = require('../models/user');
 // Bcrypt to encrypt passwords
 const bcryptSalt = 10;
 
-router.get('/private-page', ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render('auth/private', { user: req.user });
-});
-
 router.get('/signup', (req, res, next) => {
   res.render('auth/signup');
 });
@@ -22,15 +17,6 @@ router.get('/signup', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-  // const temp = strength(password);
-  const salt = bcrypt.genSaltSync(bcryptSalt);
-  const hashPass = bcrypt.hashSync(password, salt);
-
-
-  const newUser = User({
-    username,
-    password: hashPass,
-  });
 
   if (username === '' || password === '') {
     res.render('auth/signup', {
@@ -80,10 +66,6 @@ router.post('/login', passport.authenticate('local', {
   failureFlash: true,
   passReqToCallback: true,
 }));
-
-router.get('/private-page', ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render('auth/private', { user: req.user });
-});
 
 router.get('/logout', (req, res) => {
   req.logout();

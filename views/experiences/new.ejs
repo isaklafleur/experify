@@ -1,0 +1,30 @@
+<h1>Here you can CREATE one experience</h1>
+
+<h2> Please complete the following form to sign up to our awesome community </h2>
+<form action="/experiences" method="post">
+  <label for="name">Name of Experience: </label>
+  <input type="text" name="name" placeholder="Select name" required><br><br>
+  <label for="description">Description: </label>
+  <input type="text" name="description" placeholder="Write a description"><br><br>
+  <label for="images">Image: </label>
+  <input type="text" name="images" placeholder="Select a image"><br><br>
+  <label for="city">City: </label>
+  <input type="text" name="city" placeholder="city"><br><br>
+  <label for="street">Street: </label>
+  <input type="text" name="street" placeholder="street"><br><br>
+  <label for="city">Categories</label>
+  <input type="text" name="categories" placeholder="Select your categories"><br><br>
+  <label for="price">Price</label>
+  <input type="number" name="price" placeholder="price of experience"><br><br>
+  <label for="duration">Duration</label>
+  <input type="number" name="duration" placeholder="duration of experience"><br><br>
+  <label for="availability">Availability</label>
+  <input type="datetime-local" name="availability" placeholder="availability"><br><br>
+  <% if (typeof(errorMessage) != "undefined") { %>
+    <div class="error-message">
+      <%= errorMessage %>
+    </div>
+    <% } %>
+      <button class="button">Create an Experience</button>
+</form>
+<a href="/experiences">Go Back</a>
