@@ -1,0 +1,19 @@
+<form class="form-signin" action="/users/<%= result._id %>" method="post">
+<h2 class="form-signin-heading"> Please update your profile</h2>
+  <label for="username" class="sr-only">Username: </label>
+  <input type="text" class="form-control" name="username" value="<%= result.username %>" placeholder="Select username" required><br><br>
+  <label for="password" class="sr-only">Password: </label>
+  <input type="password" class="form-control" name="password" placeholder="Select a strong password" required><br><br>
+  <label for="profileImg" class="sr-only">Profile Img: </label>
+  <input type="text" class="form-control" value="<%= result.profileImg %>" name="profileImg" placeholder="Select a profile Img" required><br><br>
+  <label for="about" class="sr-only" class="sr-only">About: </label>
+  <textarea rows="4" class="form-control" cols="50" name="about" placeholder="Write some lines about you"><%= result.about %></textarea><br><br>
+  <% if (typeof(errorMessage) != "undefined") { %>
+    <div class="error-message">
+      <%= errorMessage %>
+    </div>
+    <% } %>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Update Your Profile</button>
+</form>
+<br><br>
+<a href="/">Go Back</a>
