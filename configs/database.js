@@ -3,7 +3,7 @@ const dbName = 'project2-experify';
 const port = '27017';
 
 // connect to the database
-mongoose.connect(`mongodb://localhost${port}/${dbName}`);
+mongoose.connect(`mongodb://localhost:${port}/${dbName}`);
 
 const db = mongoose.connection;
 
