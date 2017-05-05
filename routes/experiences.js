@@ -17,12 +17,12 @@ router.get('/', (req, res, next) => {
 });
 
 // Display NEW form to create new experience
-router.get('/new', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.get('/new', (req, res, next) => {
   res.render('experiences/new');
 });
 
 // Save experience to database
-router.post('/', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.post('/', (req, res, next) => {
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
@@ -57,7 +57,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 // Display EDIT form
-router.get('/:id/edit', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.get('/:id/edit', (req, res, next) => {
   const idexp = req.params.id;
   Experience.findOne({ _id: idexp }, (err, result) => {
     res.render('experiences/edit', { result });
@@ -65,7 +65,7 @@ router.get('/:id/edit', auth.checkLoggedIn('/login'), (req, res, next) => {
 });
 
 // Update experience to database
-router.post('/:id', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.post('/:id', (req, res, next) => {
   const idexp = req.params.id;
 
   const newExperience = {
@@ -92,7 +92,7 @@ router.post('/:id', auth.checkLoggedIn('/login'), (req, res, next) => {
 });
 
 // DELETE a experience
-router.get('/:id/delete', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.get('/:id/delete', (req, res, next) => {
   const idexp = req.params.id;
   Experience.findOneAndRemove({ _id: idexp }, (err, result) => {
     res.redirect('/experiences');
