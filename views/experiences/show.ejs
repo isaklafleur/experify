@@ -21,3 +21,7 @@
   <div class="col-xs-1"><%= result.duration %></div>
   <div class="col-xs-1"><%= result.availability %></div>
 </div>
+
+<a class="btn btn-primary" href="/users/<%= result.user %>">Go to Host's Profile</a>
+<a class="btn btn-warning" href="/experiences/<%= result._id %>/edit">Edit</a> 
+<a class="btn btn-danger" href="/experiences/<%= result._id %>/delete">Delete</a> 

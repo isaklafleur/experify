@@ -7,14 +7,12 @@ const router = express.Router();
 // User model
 const User = require('../models/user');
 
-// Bcrypt to encrypt passwords
-const bcryptSalt = 10;
-
 router.get('/signup', (req, res, next) => {
   res.render('auth/signup');
 });
 
 router.post('/signup', (req, res, next) => {
+  const name = req.body.name;
   const username = req.body.username;
   const password = req.body.password;
 
@@ -34,13 +32,14 @@ router.post('/signup', (req, res, next) => {
         });
         return;
       }
-
+      // Bcrypt to encrypt passwords
+      const bcryptSalt = 10;
       const salt = bcrypt.genSaltSync(bcryptSalt);
       const hashPass = bcrypt.hashSync(password, salt);
 
       const newUser = User({
-        username, // this is only allowed on ES6
-              // regularly it can also be expressed as username: username
+        name,
+        username,
         password: hashPass,
       });
 
@@ -61,7 +60,7 @@ router.get('/login', (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/private-page',
+  successRedirect: '/experiences',
   failureRedirect: '/login',
   failureFlash: true,
   passReqToCallback: true,

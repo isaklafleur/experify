@@ -4,6 +4,8 @@ const UserSchema = mongoose.Schema({
   name: String,
   username: String,
   password: String,
+  profileImg: String,
+  about: String,
   experiences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Experience' }],
 },
   {

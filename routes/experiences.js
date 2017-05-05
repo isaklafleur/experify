@@ -22,7 +22,7 @@ router.get('/new', auth.checkLoggedIn('/login'), (req, res, next) => {
 });
 
 // Save experience to database
-router.post('/', (req, res, next) => {
+router.post('/', auth.checkLoggedIn('/login'), (req, res, next) => {
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
@@ -44,7 +44,7 @@ router.post('/', (req, res, next) => {
     if (err) {
       return res.render(res.render('/new', { errors: exp.errors }));
     }
-    return res.redirect('/');
+    return res.redirect('/experiences');
   });
 });
 
@@ -57,21 +57,47 @@ router.get('/:id', (req, res, next) => {
 });
 
 // Display EDIT form
-router.get('/:id/edit', (req, res, next) => {
-  res.render('experiences/edit');
+router.get('/:id/edit', auth.checkLoggedIn('/login'), (req, res, next) => {
+  const idexp = req.params.id;
+  Experience.findOne({ _id: idexp }, (err, result) => {
+    res.render('experiences/edit', { result });
+  });
 });
 
 // Update experience to database
-router.post('/', (req, res, next) => {
-  res.redirect('/');
+router.post('/:id', auth.checkLoggedIn('/login'), (req, res, next) => {
+  const idexp = req.params.id;
+
+  const newExperience = {
+    name: req.body.name,
+    price: req.body.price,
+    images: req.body.images,
+    description: req.body.description,
+    duration: req.body.duration,
+    availability: req.body.availability,
+    user: req.user._id,
+    location: {
+      city: req.body.city,
+      street: req.body.street,
+    },
+    categories: req.body.categories,
+  };
+
+  Experience.findOneAndUpdate({ _id: idexp }, newExperience, (err, result) => {
+    if (err) {
+      return res.render(`/${idexp}/edit`, { errors: newExperience.errors });
+    }
+    return res.redirect(`/experiences/${idexp}`);
+  });
 });
 
 // DELETE a experience
-router.get('/:id/delete', (req, res, next) => {
-  res.redirect('/');
+router.get('/:id/delete', auth.checkLoggedIn('/login'), (req, res, next) => {
+  const idexp = req.params.id;
+  Experience.findOneAndRemove({ _id: idexp }, (err, result) => {
+    res.redirect('/experiences');
+  });
 });
-
-
 
 /*
 app.get('/random', (req, res, next) => {

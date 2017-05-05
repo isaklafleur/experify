@@ -9,11 +9,18 @@ module.exports = {
     next();
   },
   checkLoggedIn: redirectPath => (req, res, next) => {
-    console.log('req checkLoggedIn', req);
     if (req.isAuthenticated()) {
       next();
-    } else {
-      res.redirect(redirectPath);
     }
+    res.redirect(redirectPath);
+  },
+  // using passportJS to verify if user is logged in
+  // and also if it has the correct role to access the page
+  checkCredentials: (role, redirectPath) => (req, res, next) => {
+    if (req.isAuthenticated() && req.user.role === role) {
+      return next();
+    }
+    req.flash('error', 'You do not have access to the page.');
+    return res.redirect(redirectPath);
   },
 };
