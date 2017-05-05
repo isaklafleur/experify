@@ -11,8 +11,9 @@ module.exports = {
   checkLoggedIn: redirectPath => (req, res, next) => {
     if (req.isAuthenticated()) {
       next();
+    } else {
+      res.redirect(redirectPath);
     }
-    res.redirect(redirectPath);
   },
   // using passportJS to verify if user is logged in
   // and also if it has the correct role to access the page
