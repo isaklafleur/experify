@@ -1,8 +1,14 @@
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #eee;
 }
+
+#currency-selector, #language-selector {
+  width: 100px;
+  text-align: center;
+}
+
+/* FORMS */
 
 .form-signin {
   max-width: 330px;
@@ -47,4 +53,17 @@ body {
 .navbar {
   margin: 0px;
   border-radius: 0px;
+}
+
+/* SEARCH FORM */
+.navbar-form {
+  padding-left: 0px;
+}
+
+#search-box {
+  width: 300px;
+  padding: 5px;
+}
+#f-option {
+  margin-top: 10px;
 }

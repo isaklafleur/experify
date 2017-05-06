@@ -8,7 +8,7 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/signup', (req, res, next) => {
-  res.render('auth/signup');
+  res.render('auth/signup', { message: req.flash('error') });
 });
 
 router.post('/signup', (req, res, next) => {
@@ -17,46 +17,38 @@ router.post('/signup', (req, res, next) => {
   const password = req.body.password;
 
   if (username === '' || password === '') {
-    res.render('auth/signup', {
-      errorMessage: 'Please enter a username and password!',
-    });
+    req.flash('error', 'Please indicate a username and password');
+    res.render('auth/signup', { message: req.flash('error') });
     return;
   }
 
-  User.findOne({ username },
-    'username',
-    (err, user) => {
-      if (user !== null) {
-        res.render('auth/signup', {
-          errorMessage: 'The username already exists',
+  User.findOne({ username }, 'username', (err, user) => {
+    if (user !== null) {
+      req.flash('error', 'The username already exists');
+      res.render('auth/signup', { message: req.flash('error') });
+      return;
+    }
+    const bcryptSalt = 10;
+    const salt = bcrypt.genSaltSync(bcryptSalt);
+    const hashPass = bcrypt.hashSync(password, salt);
+
+    const newUser = User({ name, username, password: hashPass });
+
+    newUser.save((err) => {
+      if (err) {
+        req.flash('error', 'The username already exists');
+        res.render('auth/signup', { message: req.flash('error') });
+      } else {
+        passport.authenticate('local')(req, res, () => {
+          res.redirect('/experiences');
         });
-        return;
       }
-      // Bcrypt to encrypt passwords
-      const bcryptSalt = 10;
-      const salt = bcrypt.genSaltSync(bcryptSalt);
-      const hashPass = bcrypt.hashSync(password, salt);
-
-      const newUser = User({
-        name,
-        username,
-        password: hashPass,
-      });
-
-      newUser.save((err) => {
-        if (err) {
-          res.render('auth/signup', {
-            errorMessage: 'Something went wrong',
-          });
-        } else {
-          res.redirect('/login');
-        }
-      });
     });
+  });
 });
 
 router.get('/login', (req, res, next) => {
-  res.render('auth/login');
+  res.render('auth/login', { message: req.flash('error') });
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -68,12 +60,16 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/login');
+  // delete currentUser and passport properties
+  // becasuse when we calling req.logout() is leaving an empty object inside both properties.
+  delete res.locals.currentUser;
+  delete req.session.passport;
+  res.redirect('/');
 });
 
 router.get('/passport/facebook', passport.authenticate('facebook'));
 router.get('/passport/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/private-page',
+  successRedirect: '/experiences',
   failureRedirect: '/login',
 }));
 
