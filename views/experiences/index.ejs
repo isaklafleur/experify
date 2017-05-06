@@ -1,10 +1,11 @@
 <div class="container">
-  <!-- Example row of columns -->
+  <h1>Experiences</h1>
+  <% result.forEach(experience => { %>
     <div class="col-xs-6 col-sm-3">
       <div class="thumbnail">
-        <img class="front-image-thumbnail" src="images/download.svg" alt="...">
+        <img class="front-image-thumbnail" src="<%= experience.images[0] %>" alt="...">
         <div class="caption">
-          <strong>$23</strong> <a href="#">Thumbnail label</a><br>
+          <strong>$<%= experience.price %></strong> <a href="/experiences/<%= experience._id %>/"><%= experience.name %></a><br>
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -13,50 +14,12 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-6 col-sm-3">
-      <div class="thumbnail">
-        <img class="front-image-thumbnail" src="images/download.svg" alt="...">
-        <div class="caption">
-          <strong>$23</strong> <a href="#">Thumbnail label</a><br>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-      <div class="thumbnail">
-        <img class="front-image-thumbnail" src="images/download.svg" alt="...">
-        <div class="caption">
-          <strong>$23</strong> <a href="#">Thumbnail label</a><br>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-      <div class="thumbnail">
-        <img class="front-image-thumbnail" src="images/download.svg" alt="...">
-        <div class="caption">
-          <strong>$23</strong> <a href="#">Thumbnail label</a><br>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </div>
-      </div>
-    </div>
+  <% }); %>
   </div>
-</div>
-
-<h1>Here you can see ALL experiences</h1>
 
 <a href="/experiences/new" class="btn btn-primary">Add new Experience</a>
 
+<!--
 <div class="row">
   <div class="col-xs-2">Name</div>
   <div class="col-xs-2">Category</div>
@@ -79,3 +42,4 @@
   <div class="col-xs-1"><%= experience.availability %></div>
 </div>
 <% }); %>
+-->

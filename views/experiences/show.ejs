@@ -1,5 +1,43 @@
-<h1>Here you can see ONE experience</h1>
+<div class="container">
+  <ol class="breadcrumb">
+  <li><a href="#">Spain</a></li>
+  <li><a href="#">Barcelona</a></li>
+  <li class="active"><%= result.name %></li>
+</ol>
+  <h1><%= result.name %></h1>
+  <hr>
+  <div id="gallery">
+    <img id="largeImage" src="http://www.workshop.rs/demo/gallery-in-4-lines/images/image_01_large.jpg" />
+</div>
 
+<div id="thumbs">
+    <img src="http://www.workshop.rs/demo/gallery-in-4-lines/images/image_01_thumb.jpg" />
+    <img src="http://www.workshop.rs/demo/gallery-in-4-lines/images/image_02_thumb.jpg" />
+    <img src="http://www.workshop.rs/demo/gallery-in-4-lines/images/image_03_thumb.jpg" />
+    <img src="http://www.workshop.rs/demo/gallery-in-4-lines/images/image_04_thumb.jpg" />
+    <img src="http://www.workshop.rs/demo/gallery-in-4-lines/images/image_05_thumb.jpg" />
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Image Gallery Script -->
+<script type='text/javascript'>
+$(document).ready(function () {
+$('#thumbs').delegate('img', 'click', function() {
+    $('#largeImage').attr('src', $(this).attr('src').replace('thumb', 'large'));
+});
+wlh = window.location.hash[1];
+if (!isNaN(wlh)) {
+    $('#largeImage').attr('src', $('#thumbs img').eq(wlh-1).attr('src').replace('thumb', 'large'));
+}
+});
+</script>
+
+<hr>
+
+  <%= result.location.city %></strong>
+<div>
+
+<strong>Category:</strong> <%= result.categories[0] %>
 <div class="row">
   <div class="col-xs-2">Name</div>
   <div class="col-xs-2">Category</div>
@@ -13,8 +51,8 @@
 
 <div class="row">
   <div class="col-xs-2"><%= result.name %></div>
-  <div class="col-xs-2"><%= result.categories[0] %></div>
-  <div class="col-xs-1"><%= result.location.city %> <%= result.location.street %></div>
+  <div class="col-xs-2"></div>
+  <div class="col-xs-1"> <%= result.location.street %></div>
   <div class="col-xs-2"><img src="<%= result.images[0] %>"></div>
   <div class="col-xs-1"><%= result.price %></div>
   <div class="col-xs-2"><%= result.description %></div>

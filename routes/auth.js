@@ -40,7 +40,7 @@ router.post('/signup', (req, res, next) => {
         res.render('auth/signup', { message: req.flash('error') });
       } else {
         passport.authenticate('local')(req, res, () => {
-          res.redirect('/experiences');
+          res.redirect(`/experiences/`);
         });
       }
     });
@@ -52,7 +52,8 @@ router.get('/login', (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/experiences',
+  
+  successRedirect: `/experiences`,
   failureRedirect: '/login',
   failureFlash: true,
   passReqToCallback: true,

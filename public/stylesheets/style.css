@@ -3,6 +3,13 @@ body {
   padding-bottom: 40px;
 }
 
+/* Image Gallery */
+#gallery     {position:relative; width:80%}
+#gallery img {display:block}
+
+#thumbs      {overflow:hidden; width:80%;}
+#thumbs img  {float:left; margin:1px; cursor:pointer}
+
 #currency-selector, #language-selector {
   width: 100px;
   text-align: center;
@@ -66,11 +73,6 @@ body {
 .navbar {
   margin-bottom: 10px;
   border-radius: 0px;
-}
-
-/* SEARCH FORM */
-.navbar-form {
-  padding-left: 0px;
 }
 
 #search-box {
