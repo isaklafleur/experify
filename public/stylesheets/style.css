@@ -8,6 +8,19 @@ body {
   text-align: center;
 }
 
+.experience-item {
+  height: 200px;
+}
+
+.front-image-thumbnail {
+  width: 100%;
+  height: 100%
+}
+
+.thumbnail {
+  padding: 0;
+}
+
 /* FORMS */
 
 .form-signin {
@@ -51,7 +64,7 @@ body {
 }
 
 .navbar {
-  margin: 0px;
+  margin-bottom: 10px;
   border-radius: 0px;
 }
 
