@@ -1,30 +1,30 @@
 <h1>Here you can EDIT one experience</h1>
 
-<h2> Please complete the following form to sign up to our awesome community </h2>
-<form action="/experiences/<%= result._id %>" method="post">
-  <label for="name">Name of Experience: </label>
-  <input type="text" name="name" value="<%= result.name %>" placeholder="Select name" required><br><br>
-  <label for="description">Description: </label>
-  <input type="text" name="description" value="<%= result.description %>" placeholder="Write a description"><br><br>
-  <label for="images">Image: </label>
-  <input type="text" name="images" value="<%= result.images[0] %>"placeholder="Select a image"><br><br>
-  <label for="city">City: </label>
-  <input type="text" name="city" value="<%= result.location.city %>" placeholder="city"><br><br>
-  <label for="street">Street: </label>
-  <input type="text" name="street" value="<%= result.location.street %>" placeholder="street"><br><br>
-  <label for="city">Categories</label>
-  <input type="text" name="categories" value="<%= result.categories[0] %>" placeholder="Select your categories"><br><br>
-  <label for="price">Price</label>
-  <input type="number" name="price" value="<%= result.price %>" placeholder="price of experience"><br><br>
-  <label for="duration">Duration</label>
-  <input type="number" name="duration" value="<%= result.duration %>" placeholder="duration of experience"><br><br>
-  <label for="availability">Availability</label>
-  <input type="datetime-local" name="availability" value="<%= result.availability %>" placeholder="availability"><br><br>
+<form class="form-signin" action="/experiences/<%= result._id %>" method="post">
+  <h2 class="form-signin-heading">Edit Your Experience</h2>
+  <label class="sr-only" for="name">Name of Experience: </label>
+  <input class="form-control" type="text" name="name" value="<%= result.name %>" placeholder="Select name" required><br><br>
+  <label class="sr-only" for="description">Description: </label>
+  <input class="form-control" type="text" name="description" value="<%= result.description %>" placeholder="Write a description"><br><br>
+  <label class="sr-only" for="images">Image: </label>
+  <input class="form-control" type="text" name="images" value="<%= result.images[0] %>"placeholder="Select a image"><br><br>
+  <label class="sr-only" for="city">City: </label>
+  <input class="form-control" type="text" name="city" value="<%= result.location.city %>" placeholder="city"><br><br>
+  <label class="sr-only" for="street">Street: </label>
+  <input class="form-control" type="text" name="street" value="<%= result.location.street %>" placeholder="street"><br><br>
+  <label class="sr-only" for="city">Categories</label>
+  <input class="form-control" type="text" name="categories" value="<%= result.categories[0] %>" placeholder="Select your categories"><br><br>
+  <label class="sr-only" for="price">Price</label>
+  <input class="form-control" type="number" name="price" value="<%= result.price %>" placeholder="price of experience"><br><br>
+  <label class="sr-only" for="duration">Duration</label>
+  <input class="form-control" type="number" name="duration" value="<%= result.duration %>" placeholder="duration of experience"><br><br>
+  <label class="sr-only" for="availability">Availability</label>
+  <input class="form-control" type="datetime-local" name="availability" value="<%= result.availability %>" placeholder="availability"><br><br>
   <% if (typeof(errorMessage) != "undefined") { %>
     <div class="error-message">
       <%= errorMessage %>
     </div>
     <% } %>
-      <button class="button">Update an Experience</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button><br>
+      <a class="btn btn- btn-primary btn-block" href="/experiences">Go Back</a>
 </form>
-<a href="/experiences">Go Back</a>
