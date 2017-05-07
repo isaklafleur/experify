@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema({
-  name: String,
-  username: String,
+  email: String,
   password: String,
+  name: String,
   profileImg: String,
   about: String,
+  facebookId: Number,
   experiences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Experience' }],
 },
   {

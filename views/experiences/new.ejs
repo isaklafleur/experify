@@ -1,28 +1,76 @@
-<form class="form-signin" action="/experiences" method="post">
-<h2 class="form-signin-heading">Please complete the following form to sign up to our awesome community </h2>
-  <label class="sr-only" for="name">Name of Experience: </label>
-  <input class="form-control" type="text" name="name" placeholder="Select name" required><br><br>
-  <label class="sr-only" for="description">Description: </label>
-  <input class="form-control" type="text" name="description" placeholder="Write a description"><br><br>
-  <label class="sr-only" for="images">Image: </label>
-  <input class="form-control" type="text" name="images" placeholder="Select a image"><br><br>
-  <label class="sr-only" for="city">City: </label>
-  <input class="form-control" type="text" name="city" placeholder="city"><br><br>
-  <label class="sr-only" for="street">Street: </label>
-  <input class="form-control" type="text" name="street" placeholder="street"><br><br>
-  <label class="sr-only" for="city">Categories</label>
-  <input class="form-control" type="text" name="categories" placeholder="Select your categories"><br><br>
-  <label class="sr-only" for="price">Price</label>
-  <input class="form-control" type="number" name="price" placeholder="price of experience"><br><br>
-  <label class="sr-only" for="duration">Duration</label>
-  <input class="form-control" type="number" name="duration" placeholder="duration of experience"><br><br>
-  <label class="sr-only" for="availability">Availability</label>
-  <input class="form-control" type="datetime-local" name="availability" placeholder="availability"><br><br>
-  <% if (typeof(errorMessage) != "undefined") { %>
-    <div class="error-message">
-      <%= errorMessage %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form class="form-inline">
+        <div class="form-group">
+          <input type="text" placeholder="Search by Destination or Experience" class="form-control" name="locationName" id="locationName">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Street" name="street" id="street">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Street No." name="streetno" id="streetno">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Neighborhood" name="neighborhood" id="neighborhood">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="street" id="street">
+        </div>
     </div>
-    <% } %>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Create an Experience</button><br>
-      <a class="btn btn-md btn-primary btn-block" href="/experiences">Go Back</a>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control" name="name" placeholder="Name of Experience">
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" placeholder="Write a short description about the experience you want to offer"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<button type="submit" class="btn btn-default">Send invitation</button>
 </form>
+
+
+
+<div class="row">
+  <div class="col-xs-6"></div>
+  <div class="col-xs-6">
+    <form class="form-inline" action="/experiences" method="post">
+      <h2 class="form-signin-heading">Please complete the following form to sign up to our awesome community </h2>
+      <label class="sr-only" for="name">Name of Experience: </label>
+      <input class="form-control" type="text" name="name" placeholder="Select name" required><br><br>
+      <label class="sr-only" for="description">Description: </label>
+      <input class="form-control" type="text" name="description" placeholder="Write a description"><br><br>
+      <label class="sr-only" for="images">Image: </label>
+      <input class="form-control" type="text" name="images" placeholder="Select a image"><br><br>
+      <label class="sr-only" for="city">City: </label>
+      <input class="form-control" type="text" name="city" placeholder="city"><br><br>
+      <label class="sr-only" for="street">Street: </label>
+      <input class="form-control" type="text" name="street" placeholder="street"><br><br>
+      <label class="sr-only" for="city">Categories</label>
+      <input class="form-control" type="text" name="categories" placeholder="Select your categories"><br><br>
+      <label class="sr-only" for="price">Price</label>
+      <input class="form-control" type="number" name="price" placeholder="price of experience"><br><br>
+      <label class="sr-only" for="duration">Duration</label>
+      <input class="form-control" type="number" name="duration" placeholder="duration of experience"><br><br>
+      <label class="sr-only" for="availability">Availability</label>
+      <input class="form-control" type="datetime-local" name="availability" placeholder="availability"><br><br>
+      <% if (typeof(errorMessage) != "undefined") { %>
+        <div class="error-message">
+          <%= errorMessage %>
+        </div>
+        <% } %>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Create an Experience</button><br>
+          <a class="btn btn-md btn-primary btn-block" href="/experiences">Go Back</a>
+    </form>
+  </div>
+</div>
+<div class="row">
+
+</div>
+</div>

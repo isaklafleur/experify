@@ -1,7 +1,7 @@
 <form class="form-signin" action="/users/<%= result._id %>" method="post">
 <h2 class="form-signin-heading"> Please update your profile</h2>
-  <label for="username" class="sr-only">Username: </label>
-  <input type="text" class="form-control" name="username" value="<%= result.username %>" placeholder="Select username" required><br><br>
+  <label for="email" class="sr-only">email: </label>
+  <input type="text" class="form-control" name="email" value="<%= result.email %>" placeholder="Select email" required><br><br>
   <label for="password" class="sr-only">Password: </label>
   <input type="password" class="form-control" name="password" placeholder="Select a strong password" required><br><br>
   <label for="profileImg" class="sr-only">Profile Img: </label>

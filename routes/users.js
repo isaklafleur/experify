@@ -32,7 +32,7 @@ router.post('/:id', (req, res, next) => {
 
   const updateUser = {
     name: req.body.name,
-    username: req.body.username,
+    email: req.body.email,
     password: hashPass,
     profileImg: req.body.profileImg,
     about: req.body.about,
