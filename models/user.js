@@ -4,9 +4,14 @@ const UserSchema = mongoose.Schema({
   email: String,
   password: String,
   name: String,
-  profileImg: String,
+  pic_path: String,
+  pic_name: String,
   about: String,
   facebookId: Number,
+  location: {
+    city: { type: String },
+    country: { type: String },
+  },
   experiences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Experience' }],
 },
   {

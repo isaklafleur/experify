@@ -75,7 +75,7 @@ passport.use(new FbStrategy({
       user = new User({
         facebookId: profile.id,
         name: profile.displayName,
-        profileImg: profile.photos[0].value,
+        pic_path: profile.photos[0].value,
       });
       user.save((err) => {
         if (err) {

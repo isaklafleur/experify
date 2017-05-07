@@ -42,7 +42,7 @@ router.post('/signup', (req, res, next) => {
         res.render('auth/signup', { message: req.flash('error') });
       } else {
         passport.authenticate('local')(req, res, () => {
-          res.redirect(`/experiences/`);
+          res.redirect('/profile');
         });
       }
     });
@@ -54,11 +54,12 @@ router.get('/login', (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: `/experiences/`,
   failureRedirect: '/login',
   failureFlash: true,
   passReqToCallback: true,
-}));
+}), (req, res) => {
+  res.redirect('/profile');
+});
 
 router.get('/logout', (req, res) => {
   req.logout();
@@ -71,7 +72,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
 router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/experiences',
+  successRedirect: '/profile',
   failureRedirect: '/login',
 }));
 

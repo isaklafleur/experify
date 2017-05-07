@@ -2,6 +2,7 @@ const express = require('express');
 const favicon = require('serve-favicon');
 const path = require('path');
 const logger = require('morgan');
+const multer = require('multer');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -12,7 +13,7 @@ const app = express();
 
 // Require the Routes
 const index = require('./routes/index');
-const users = require('./routes/users');
+const profile = require('./routes/profile');
 const authentication = require('./routes/auth');
 const experiences = require('./routes/experiences');
 
@@ -43,10 +44,10 @@ app.use(session({
 
 app.use(flash());
 
-// app.use(auth.setCurrentUser);
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(auth.setCurrentUser);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -54,17 +55,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// adding our own middleware so all pages can access currentUser
+/*// adding our own middleware so all pages can access currentUser
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
   next();
-});
+});*/
 
 // Routes
 app.use('/', index);
-app.use('/users', users);
+app.use('/profile', profile);
 app.use('/', authentication);
 app.use('/experiences', experiences);
 

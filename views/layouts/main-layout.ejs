@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Experify.co | Tours, sightseeing tours, activities & things to do</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="http://localhost:3000/stylesheets/style.css">
 </head>
 
@@ -28,22 +29,17 @@
           <li><a href="/experiences">Experiences</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <% if(!currentUser) { %>
             <li><a href="/login">Log in</a></li>
             <li><a href="/signup">Sign Up</a></li>
-            <% } else { %>
-              <li><a href="/users/<%= currentUser._id %>">Signed in As <%= currentUser.name %></a></li>
+              <li><a href="/profile/">Profile</a></li>
               <li><a href="/logout">Logout</a></li>
-              <% } %>
         </ul>
       </div>
       <!--/.nav-collapse -->
     </div>
   </nav>
   <%- body %>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://localhost:3000/javascripts/main.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

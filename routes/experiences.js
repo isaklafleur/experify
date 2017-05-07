@@ -1,4 +1,6 @@
 const express = require('express');
+const ensureLogin = require('connect-ensure-login');
+
 const router = express.Router();
 const auth = require('../helpers/auth.js');
 
@@ -10,17 +12,18 @@ router.get('/', (req, res, next) => {
     if (err) {
       next(err);
     }
+    console.log(result);
     res.render('experiences/index', { result });
   });
 });
 
 // Display NEW form to create new experience
-router.get('/new', (req, res, next) => {
+router.get('/new', ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render('experiences/new');
 });
 
 // Save experience to database
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
@@ -28,21 +31,22 @@ router.post('/', (req, res, next) => {
     description: req.body.description,
     duration: req.body.duration,
     availability: req.body.availability,
-    user: req.user._id,
+    user: req.session.passport.user._id,
+    address: req.body.address,
     location: {
-      city: req.body.city,
-      street: req.body.street,
+      type: 'Point',
+      coordinates: [req.body.long, req.body.lat],
     },
-    categories: req.body.categories,
+    category: req.body.category,
   };
 
   const exp = new Experience(newExperience);
 
   exp.save((err) => {
     if (err) {
-      return res.render(res.render('/new', { errors: exp.errors }));
+      return res.render('/new', { errors: exp.errors });
     }
-    return res.redirect('/experiences');
+    return res.redirect('/profile');
   });
 });
 

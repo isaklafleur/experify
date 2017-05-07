@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Edit Profile</h1>
+  <hr>
+  <form class="form-signin" action="/profile/<%= result._id %>" method="post">
+    <label for="email" class="sr-only">email: </label>
+    <input type="text" class="form-control" name="email" value="<%= result.email %>" readonly><br><br>
+    <label for="password" class="sr-only">Password: </label>
+    <input type="password" class="form-control" name="password" placeholder="Password" required><br><br>
+    <label for="name" class="sr-only">Name: </label>
+    <input type="text" class="form-control" value="<%= result.name %>" name="name" placeholder="Name" required><br><br>
+    <label for="city" class="sr-only">City: </label>
+    <input type="text" class="form-control" value="<%= result.location.city %>" name="city" placeholder="City" required><br><br>
+    <label for="country" class="sr-only">Name: </label>
+    <input type="text" class="form-control" value="<%= result.location.country %>" name="country" placeholder="Country" required><br><br>
+    <label for="about" class="sr-only" class="sr-only">About: </label>
+    <label for="pic_path" class="sr-only">Profile Img: </label>
+    <input type="text" class="form-control" value="<%= result.pic_path %>" name="pic_path" placeholder="Profile Image" required><br><br>
+    <label for="about" class="sr-only" class="sr-only">About: </label>
+    <textarea rows="4" class="form-control" cols="50" name="about" placeholder="Write some lines about you"><%= result.about %></textarea><br><br>
+    <% if (typeof(errorMessage) != "undefined") { %>
+      <div class="error-message">
+        <%= errorMessage %>
+      </div>
+      <% } %>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Update Your Profile</button>
+  </form>
+  <br><br>
+  <a href="/">Go Back</a>
+</div>

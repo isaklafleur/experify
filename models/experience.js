@@ -9,14 +9,14 @@ const ExperienceSchema = mongoose.Schema({
   availability: [{ type: Date }],
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
-  location: {
-    city: String,
-    street: String,
-  },
-  categories: [{ type: String }],
+  address: String,
+  location: { type: { type: String }, coordinates: [Number] },
+  category: String,
 },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   });
+
+ExperienceSchema.index({ location: '2dsphere' });
 
 module.exports = mongoose.model('Experience', ExperienceSchema);
