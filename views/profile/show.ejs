@@ -1,0 +1,20 @@
+<div class="container profile-page">
+<h1><%= user.name %></h1>
+<hr>
+<img class="img-circle" src="<%= user.pic_path %>"><br>
+<h3><%= user.location.city%>, <%= user.location.country %></h3>
+
+<p>Hi there! I'm Tomas, a jazz piano player from Barcelona. I love art, music, asian food, wine, traveling and spend time with friends. I'd love to share these vibes with you!</p>
+<a class="btn btn-warning" href="/profile/<%=user._id%>/edit">Edit Profile</a><br>
+<i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i> based on 63 Reviews
+<hr>
+<h3>Experiences</h3>
+<a href="/experiences/new" class="btn btn-primary">Add Experience</a>
+
+<hr>
+<h3>Reviews (63)</h3>
+<h4>Reviews From Experifiers</h4>
+
+<a href="#"><img src="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-circle-128.png"><br>Tammy</a>
+<p>Good intimate jazz performance. Started on time but the band, singer and fellow travelers were not introduced as one would think for this type of experience. The house dog roaming and trying to eat guests food was also distracting.</p>
+</div>

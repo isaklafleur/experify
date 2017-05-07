@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 // const passport = require('passport');
 
-const passport = require('../helpers/passport');
+const passport = require('passport');
 
 const router = express.Router();
 
@@ -15,18 +15,18 @@ router.get('/signup', (req, res, next) => {
 
 router.post('/signup', (req, res, next) => {
   const name = req.body.name;
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
-  if (username === '' || password === '') {
-    req.flash('error', 'Please indicate a username and password');
+  if (email === '' || password === '') {
+    req.flash('error', 'Please indicate a email and password');
     res.render('auth/signup', { message: req.flash('error') });
     return;
   }
 
-  User.findOne({ username }, 'username', (err, user) => {
+  User.findOne({ email }, 'email', (err, user) => {
     if (user !== null) {
-      req.flash('error', 'The username already exists');
+      req.flash('error', 'The email already exists');
       res.render('auth/signup', { message: req.flash('error') });
       return;
     }
@@ -34,15 +34,15 @@ router.post('/signup', (req, res, next) => {
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
 
-    const newUser = User({ name, username, password: hashPass });
+    const newUser = User({ name, email, password: hashPass });
 
     newUser.save((err) => {
       if (err) {
-        req.flash('error', 'The username already exists');
+        req.flash('error', 'The email already exists');
         res.render('auth/signup', { message: req.flash('error') });
       } else {
         passport.authenticate('local')(req, res, () => {
-          res.redirect(`/experiences/`);
+          res.redirect('/profile');
         });
       }
     });
@@ -54,11 +54,12 @@ router.get('/login', (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: `/experiences/`,
   failureRedirect: '/login',
   failureFlash: true,
   passReqToCallback: true,
-}));
+}), (req, res) => {
+  res.redirect('/profile');
+});
 
 router.get('/logout', (req, res) => {
   req.logout();
@@ -69,9 +70,9 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/passport/facebook', passport.authenticate('facebook'));
-router.get('/passport/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/experiences',
+router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect: '/profile',
   failureRedirect: '/login',
 }));
 
