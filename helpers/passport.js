@@ -14,7 +14,10 @@ passport.serializeUser((user, cb) => { cb(null, user); });
 passport.deserializeUser((user, cb) => { cb(null, user); });
 
 passport.use(new LocalStrategy({
-  passReqToCallback: true }, (req, username, password, next) => {
+  passReqToCallback: true,
+//  usernameField: 'username',
+//  passwordField: 'password',
+}, (req, username, password, next) => {
     User.findOne({ username }, (err, user) => {
       if (err) {
         return next(err);
@@ -27,7 +30,7 @@ passport.use(new LocalStrategy({
       }
       return next(null, user);
     });
-  }));
+}));
 
 passport.use(new FbStrategy({
   clientID: '2231e9c27a40d4b6546a65ec27f80eba',
