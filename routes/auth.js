@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const passport = require('passport');
+// const passport = require('passport');
+
+const passport = require('../helpers/passport');
 
 const router = express.Router();
 
@@ -52,8 +54,7 @@ router.get('/login', (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  
-  successRedirect: `/experiences`,
+  successRedirect: `/experiences/`,
   failureRedirect: '/login',
   failureFlash: true,
   passReqToCallback: true,
