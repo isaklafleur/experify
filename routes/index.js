@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
 
 // SEARCH
 router.get('/search/:format?', (req, res, next) => {
-  console.log(req.query);
+  // console.log(req.query);
   if (req.query.long == null || req.query.long == null) {
     Experience.find({}, (err, result) => {
       res.render('experiences/index', { result });

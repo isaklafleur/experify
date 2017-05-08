@@ -14,19 +14,17 @@
   <input id="lat" type="hidden" class="form-control" name="lat">
   <input id="long" type="hidden" class="form-control" name="long">
   <label class="sr-only" for="city">Categories</label>
-  <input class="form-control" type="text" name="categories" value="<%= result.category %>" placeholder="Select a category" required>
+  <input class="form-control" type="text" name="category" value="<%= result.category %>" placeholder="Select a category" required>
   <label class="sr-only" for="price">Price</label>
   <input class="form-control" type="number" name="price" value="<%= result.price %>" placeholder="price of experience">
   <label class="sr-only" for="duration">Duration</label>
-  <input class="form-control" type="number" name="duration" value="<%= result.duration %>" placeholder="duration of experience">
-  <label class="sr-only" for="availability">Availability</label>
+  <input class="form-control" type="number" name="duration" value="<%= result.duration %>" placeholder="duration of experience"><br>
   <% if (typeof(errorMessage) != "undefined") { %>
     <div class="error-message">
       <%= errorMessage %>
     </div>
     <% } %>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button><br>
-      <a class="btn btn- btn-primary btn-block" href="/experiences">Go Back</a>
+    <button class="btn btn-primary" type="submit">Update</button><br>
 </form>
 
   <% if (typeof(errorMessage) != "undefined") { %>

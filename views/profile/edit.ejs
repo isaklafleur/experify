@@ -1,29 +1,39 @@
 <div class="container">
   <h1>Edit Profile</h1>
   <hr>
+
   <form class="form-signin" action="/profile/<%= result._id %>" method="post">
-    <label for="email" class="sr-only">email: </label>
-    <input type="text" class="form-control" name="email" value="<%= result.email %>" readonly><br><br>
-    <label for="password" class="sr-only">Password: </label>
-    <input type="password" class="form-control" name="password" placeholder="Password" required><br><br>
-    <label for="name" class="sr-only">Name: </label>
-    <input type="text" class="form-control" value="<%= result.name %>" name="name" placeholder="Name" required><br><br>
-    <label for="city" class="sr-only">City: </label>
-    <input type="text" class="form-control" value="<%= result.location.city %>" name="city" placeholder="City" required><br><br>
-    <label for="country" class="sr-only">Name: </label>
-    <input type="text" class="form-control" value="<%= result.location.country %>" name="country" placeholder="Country" required><br><br>
-    <label for="about" class="sr-only" class="sr-only">About: </label>
-    <label for="pic_path" class="sr-only">Profile Img: </label>
-    <input type="text" class="form-control" value="<%= result.pic_path %>" name="pic_path" placeholder="Profile Image" required><br><br>
-    <label for="about" class="sr-only" class="sr-only">About: </label>
-    <textarea rows="4" class="form-control" cols="50" name="about" placeholder="Write some lines about you"><%= result.about %></textarea><br><br>
+       <div class="input-group margin-bottom-sm">
+  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+  <input class="form-control" type="text" name="email" value="<%= result.email %>" placeholder="Email address" readonly>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+    <input class="form-control" name="password" type="password" placeholder="Password" autofocus required>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+    <input class="form-control" name="name" type="text" value="<%= result.name %>" placeholder="Name" required>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+    <input class="form-control" name="city" type="text" value="<%= result.location.city %>"placeholder="City" required>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i></span>
+    <input class="form-control" name="country" type="text" value="<%= result.location.country %>" placeholder="Country" required>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
+    <input class="form-control" value="<%= result.pic_path %>" name="pic_path" type="text" placeholder="Profile Image" required>
+  </div>
+  <textarea class="form-control" rows="10" name="about" placeholder="Write some lines about you"><%= result.about %></textarea>
+    <br><br>
     <% if (typeof(errorMessage) != "undefined") { %>
       <div class="error-message">
         <%= errorMessage %>
       </div>
       <% } %>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Update Your Profile</button>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Update Your Profile</button>
   </form>
-  <br><br>
-  <a href="/">Go Back</a>
 </div>

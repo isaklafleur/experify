@@ -1,25 +1,25 @@
 <div class="container">
+
 <h1><%= user.name %></h1>
 <hr>
-<img class="img-circle img-responsive" src="<%= user.pic_path %>"><br>
+<img class="img-circle img-responsive profile-img" src="<%= user.pic_path %>"><br>
 <h3><%= user.location.city%>, <%= user.location.country %></h3>
 
-<p>Hi there! I'm Tomas, a jazz piano player from Barcelona. I love art, music, asian food, wine, traveling and spend time with friends. I'd love to share these vibes with you!</p>
-<a class="btn btn-warning" href="/profile/<%=user._id%>/edit">Edit Profile</a><br>
+<p><%= user.about %></p>
+<a class="btn btn-warning" href="/profile/<%=user._id%>/edit">Edit Profile</a> 
+<a href="/experiences/new" class="btn btn-success">Add Experience</a><br>
 <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i> based on 63 Reviews
 <hr>
 <h3>Experiences</h3>
 <% user.experiences.forEach(experience => { %>
-<strong>Name:</strong><%= experience.name %><br>
-<strong>Description:<strong> <%= experience.description %><br>
-<img class="img-responsive" src="<%= experience.images[0] %>"<br>
+<h4><a href="/experiences/<%= experience._id %>"><%= experience.name %></a></h4>
+<strong>Description: </strong><%= experience.description %><br>
+<img class="img-responsive" src="<%= experience.images[0] %>"><br><br>
+<a class="btn btn-warning" href="/experiences/<%= experience._id %>/edit">Edit</a> 
+<a class="btn btn-danger" href="/experiences/<%= experience._id %>/delete">Delete</a>
 <hr>
 <% }) %>
-<a href="/experiences/new" class="btn btn-primary">Add Experience</a>
-
-<hr>
-<h3>Reviews (63)</h3>
-<h4>Reviews From Experifiers</h4>
+<h3>Reviews From Experifiers (63)</h3>
 
 <a href="#"><img src="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-circle-128.png"><br>Tammy</a>
 <p>Good intimate jazz performance. Started on time but the band, singer and fellow travelers were not introduced as one would think for this type of experience. The house dog roaming and trying to eat guests food was also distracting.</p>
