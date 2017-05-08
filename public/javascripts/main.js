@@ -8,7 +8,7 @@ function init() {
       window.alert('Autocomplete’s returned place contains no geometry');
       return;
     }
-
+/*
     const location = {};
     // Location details
     for (let i = 0; i < place.address_components.length; i++) {
@@ -41,7 +41,7 @@ function init() {
     location.lng = place.geometry.location.lng();
     console.log(location);
   });
-}
+}*/
 
 $(document).ready(() => {
   init();

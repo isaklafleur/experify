@@ -1,19 +1,57 @@
 <div class="container">
-  <form class="form-inline" action="/experiences" method="post">
-    <input class="form-control" type="text" name="name" placeholder="Short Description of the Experience" required>
-    <input type="text" class="form-control" name="address" placeholder="Full Address" id="searchTextField">
+  <h1>Add new Experience</h1>
+<hr>
+  <form class="form-signin" action="/experiences" method="post">
+<div class="input-group margin-bottom-sm">
+  <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
+  <input class="form-control" type="text" name="name" placeholder="Title of your Experience" required autofocus>
+</div>
+  <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer" required></textarea>
 
-    <input id="lat" type="hidden" class="form-control" name="lat">
-    <input id="long" type="hidden" class="form-control" name="long">
+<div class="input-group margin-bottom-sm">
+  <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
+  <input class="form-control" type="text" name="images" placeholder="Photo" required>
+</div>
 
-    <textarea name="description" class="form-control" placeholder="Write a short description about the experience you want to offer"></textarea>
-    <input class="form-control" type="text" name="images" placeholder="Select a image">
-    <input class="form-control" type="text" name="categories" placeholder="Select your categories">
-    <input class="form-control" type="number" name="price" placeholder="price of experience">
-    <input class="form-control" type="number" name="duration" placeholder="Duration of the experience">
-    <button type="submit" class="btn btn-default">Create a new Experience</button>
-    <a class="btn btn-md btn-primary" href="/experiences">Go Back</a>
-  </form>
+<div class="input-group margin-bottom-sm">
+  <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+  <input class="form-control" type="text" name="address" id="searchTextField" placeholder="Location" required>
+</div>
+  <input id="lat" type="hidden" class="form-control" name="lat">
+  <input id="long" type="hidden" class="form-control" name="long">
+
+<div class="input-group margin-bottom-sm">
+  <span class="input-group-addon"><i class="fa fa-usd fa-fw"></i></span>
+  <input class="form-control" type="text"  name="price" placeholder="Price" required>
+</div>
+
+<div class="input-group margin-bottom-sm">
+  <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+  <input class="form-control" type="text" name="duration" placeholder="Duration" required>
+</div>
+
+    <select class="form-control" name="category" required> <!--Supplement an id here instead of using 'name'-->
+      <option value="">Category</option> 
+      <option value="Arts">Arts</option> 
+      <option value="Entertainment" >Entertainment</option>
+      <option value="Fashion">Fashion</option>
+      <option value="Food & Drink">Food & Drink</option>
+      <option value="Lifestyle">Lifestyle</option>
+      <option value="Music">Music</option>
+      <option value="Nature">Nature</option>
+      <option value="Social impact">Social impact</option>
+      <option value="Sports">Sports</option>
+      <option value="Technology">Technology</option>
+      <option value="Wellness">Wellness</option>
+    </select><br>
+
+  <% if (typeof(errorMessage) != "undefined") { %>
+    <div class="error-message">
+      <%= errorMessage %>
+    </div>
+    <% } %>
+    <button class="btn btn-lg btn-success btn-block" type="submit">Update</button><br>
+</form>
 
   <% if (typeof(errorMessage) != "undefined") { %>
     <div class="error-message">

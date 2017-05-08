@@ -1,7 +1,6 @@
 function init() {
   const input = document.getElementById('locationName');
   const autocomplete = new google.maps.places.Autocomplete(input);
-  console.log(autocomplete)
 }
 
 $('#locationName').change(() => {
@@ -28,7 +27,6 @@ function getCoordinates() {
     $('#lat').val(lat);
     $('#long').val(long);
   });
-  
 }
 
 $('#goMap').click(function () {
