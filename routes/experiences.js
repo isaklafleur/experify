@@ -7,8 +7,8 @@ const ensureLogin = require('connect-ensure-login');
 
 const router = express.Router();
 const auth = require('../helpers/auth.js');
-
 const Experience = require('../models/experience');
+const User = require('../models/user');
 
 // INDEX all experiences
 router.get('/', (req, res, next) => {
@@ -50,7 +50,13 @@ router.post('/', (req, res) => {
     if (err) {
       return res.render('/new', { errors: exp.errors });
     }
-    return res.redirect('/profile');
+    User.findByIdAndUpdate({ _id: req.session.passport.user._id }, { $push: { experiences: exp._id } }, (err) => {
+      if (err) {
+        next(err);
+      } else {
+        return res.redirect('/profile');
+      }
+    });
   });
 });
 
@@ -92,9 +98,15 @@ router.post('/:id', (req, res, next) => {
 
   Experience.findOneAndUpdate({ _id: idexp }, newExperience, (err, result) => {
     if (err) {
-      return res.render(`/${idexp}/edit`, { errors: newExperience.errors });
+      return res.render('experiences/edit', { errors: newExperience.errors });
     }
-    return res.redirect(`/experiences/${idexp}`);
+    User.findByIdAndUpdate({ _id: req.session.passport.user._id }, { $push: { experiences: idexp } }, (err) => {
+      if (err) {
+        next(err);
+      } else {
+        return res.redirect(`/experiences/${idexp}`);
+      }
+    });
   });
 });
 

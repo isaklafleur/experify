@@ -6,14 +6,14 @@ const Review = require('../models/review');
 
 const middlewareObj = {};
 
-middlewareObj.checkCampgroundOwnership = function (req, res, next) {
+middlewareObj.checkExperienceOwnership = (req, res, next) => {
   // is logged in?
   if (req.isAuthenticated()) {
-    Experience.findById(req.params.id, (err, foundCampground) => {
+    Experience.findById(req.params.id, (err, foundExperience) => {
       if (err) {
-        req.flash('error', 'Campground not found');
+        req.flash('error', 'Experience not found');
         res.redirect('back');
-      } else if (foundCampground.author.id.equals(req.user._id)) {
+      } else if (foundExperience.user.equals(req.user._id)) {
         next();
       } else {
         req.flash('error', "You don't have permission to do that");
