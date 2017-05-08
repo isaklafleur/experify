@@ -1,25 +1,71 @@
+// =================
+// PROFILE ROUTES
+// =================
+
 const express = require('express');
 const bcrypt = require('bcrypt');
 const ensureLogin = require('connect-ensure-login');
+const auth = require('../helpers/auth');
 
 const router = express.Router();
 
 const User = require('../models/user');
 
-router.get('/', ensureLogin.ensureLoggedIn(), (req, res) => {
+/* router.get('/', ensureLogin.ensureLoggedIn(), (req, res) => {
   // console.log('req.user', req.user);
   // console.log('req.session', req.session.passport.user._id);
   // console.log(req.session);
   User.findById(req.session.passport.user._id, (err, user) => {
-    res.render('profile/show', { user });
+    res.render('profile/show', {
+      user,
+    });
   });
+});*/
+
+router.get('/', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
+  console.log('user id: ', req.user._id);
+  User
+    .findOne({
+      _id: req.user._id,
+    })
+    .populate('experiences')
+    .exec((err, user) => {
+      if (err) {
+        next(err);
+      } else {
+        // console.log('user: ', user);
+        res.render('profile/show', {
+          user,
+        });
+      }
+    });
+});
+
+router.get('/:id', (req, res) => {
+  const idusr = req.params.id;
+  User
+    .findOne({ _id: idusr })
+      .populate('experiences')
+      .exec((err, user) => {
+        if (err) {
+          next(err);
+        } else {
+          res.render('profile/show', {
+            user,
+          });
+        }
+      });
 });
 
 // Display Edit form
 router.get('/:id/edit', ensureLogin.ensureLoggedIn(), (req, res) => {
   const idUser = req.params.id;
-  User.findOne({ _id: idUser }, (err, result) => {
-    res.render('profile/edit', { result });
+  User.findOne({
+    _id: idUser,
+  }, (err, result) => {
+    res.render('profile/edit', {
+      result,
+    });
   });
 });
 
@@ -44,9 +90,13 @@ router.post('/:id', (req, res) => {
     },
   };
 
-  User.findOneAndUpdate({ _id: idexp }, updateUser, (err, result) => {
+  User.findOneAndUpdate({
+    _id: idexp,
+  }, updateUser, (err, result) => {
     if (err) {
-      return res.render('profile/edit', { user: result });
+      return res.render('profile/edit', {
+        user: result,
+      });
     }
     return res.redirect('/profile');
   });

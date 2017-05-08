@@ -29,17 +29,20 @@
           <li><a href="/experiences">Experiences</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <% if(!currentUser) { %>
             <li><a href="/login">Log in</a></li>
             <li><a href="/signup">Sign Up</a></li>
+           <% } else { %>
               <li><a href="/profile/">Profile</a></li>
               <li><a href="/logout">Logout</a></li>
+              <% } %>
         </ul>
       </div>
       <!--/.nav-collapse -->
     </div>
   </nav>
   <%- body %>
-
+  <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

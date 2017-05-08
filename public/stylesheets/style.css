@@ -6,7 +6,10 @@ body {
 .jumbotron {
   background-image: url('http://www.freedomwallpaper.com/nature-wallpaper/nature-hd-wallpapers-water.jpg');
   background-size: 100% 100%;
+}
 
+.img-responsive {
+  max-height: 200px;
 }
 
 /* Image Gallery */
@@ -96,9 +99,6 @@ body {
 #locationName {
   width: 300px;
   padding: 5px;
-}
-#f-option {
-  margin-top: 10px;
 }
 
 #map {

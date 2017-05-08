@@ -1,5 +1,13 @@
-const mongoose = require('mongoose');
+const faker = require('faker');
 
+data = {}
+
+for (var i = 0; i < 100; i++) {
+  name: faker.name.findName();
+}
+data = {
+
+}
 
 const ExperienceSchema = new mongoose.Schema({
   name: String,
@@ -17,7 +25,3 @@ const ExperienceSchema = new mongoose.Schema({
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   });
-
-ExperienceSchema.index({ location: '2dsphere' });
-
-module.exports = mongoose.model('Experience', ExperienceSchema);
