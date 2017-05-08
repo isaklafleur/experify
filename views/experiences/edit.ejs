@@ -1,25 +1,25 @@
-<h1>Here you can EDIT one experience</h1>
+<div class="container">
+<h1>Edit the details of your experience</h1>
+<hr>
 
 <form class="form-signin" action="/experiences/<%= result._id %>" method="post">
-  <h2 class="form-signin-heading">Edit Your Experience</h2>
   <label class="sr-only" for="name">Name of Experience: </label>
-  <input class="form-control" type="text" name="name" value="<%= result.name %>" placeholder="Select name" required><br><br>
+  <input class="form-control" type="text" name="name" value="<%= result.name %>" placeholder="Select name" required>
   <label class="sr-only" for="description">Description: </label>
-  <input class="form-control" type="text" name="description" value="<%= result.description %>" placeholder="Write a description"><br><br>
+  <input class="form-control" type="text" name="description" value="<%= result.description %>" placeholder="Write a description" required>
   <label class="sr-only" for="images">Image: </label>
-  <input class="form-control" type="text" name="images" value="<%= result.images[0] %>"placeholder="Select a image"><br><br>
-  <label class="sr-only" for="city">City: </label>
-  <input class="form-control" type="text" name="city" value="<%= result.location.city %>" placeholder="city"><br><br>
-  <label class="sr-only" for="street">Street: </label>
-  <input class="form-control" type="text" name="street" value="<%= result.location.street %>" placeholder="street"><br><br>
+  <input class="form-control" type="text" name="images" value="<%= result.images[0] %>"placeholder="Select a image" required>
+  <label class="sr-only" for="city">Location: </label>
+  <input type="text" class="form-control" name="address" value"<%= result.address %>" placeholder="Full Address" id="searchTextField" required>
+  <input id="lat" type="hidden" class="form-control" name="lat">
+  <input id="long" type="hidden" class="form-control" name="long">
   <label class="sr-only" for="city">Categories</label>
-  <input class="form-control" type="text" name="categories" value="<%= result.categories[0] %>" placeholder="Select your categories"><br><br>
+  <input class="form-control" type="text" name="categories" value="<%= result.category %>" placeholder="Select a category" required>
   <label class="sr-only" for="price">Price</label>
-  <input class="form-control" type="number" name="price" value="<%= result.price %>" placeholder="price of experience"><br><br>
+  <input class="form-control" type="number" name="price" value="<%= result.price %>" placeholder="price of experience">
   <label class="sr-only" for="duration">Duration</label>
-  <input class="form-control" type="number" name="duration" value="<%= result.duration %>" placeholder="duration of experience"><br><br>
+  <input class="form-control" type="number" name="duration" value="<%= result.duration %>" placeholder="duration of experience">
   <label class="sr-only" for="availability">Availability</label>
-  <input class="form-control" type="datetime-local" name="availability" value="<%= result.availability %>" placeholder="availability"><br><br>
   <% if (typeof(errorMessage) != "undefined") { %>
     <div class="error-message">
       <%= errorMessage %>
@@ -28,3 +28,13 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button><br>
       <a class="btn btn- btn-primary btn-block" href="/experiences">Go Back</a>
 </form>
+
+  <% if (typeof(errorMessage) != "undefined") { %>
+    <div class="error-message">
+      <%= errorMessage %>
+    </div>
+    <% } %>
+</div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://localhost:3000/javascripts/newExperience.js"></script>

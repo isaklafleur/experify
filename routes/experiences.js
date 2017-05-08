@@ -1,3 +1,7 @@
+// =================
+// EXPERIENCE ROUTES
+// =================
+
 const express = require('express');
 const ensureLogin = require('connect-ensure-login');
 
@@ -62,6 +66,7 @@ router.get('/:id', (req, res, next) => {
 router.get('/:id/edit', (req, res, next) => {
   const idexp = req.params.id;
   Experience.findOne({ _id: idexp }, (err, result) => {
+    // console.log(result);
     res.render('experiences/edit', { result });
   });
 });
@@ -77,12 +82,12 @@ router.post('/:id', (req, res, next) => {
     description: req.body.description,
     duration: req.body.duration,
     availability: req.body.availability,
-    user: req.user._id,
+    address: req.body.address,
     location: {
-      city: req.body.city,
-      street: req.body.street,
+      type: 'Point',
+      coordinates: [req.body.long, req.body.lat],
     },
-    categories: req.body.categories,
+    category: req.body.category,
   };
 
   Experience.findOneAndUpdate({ _id: idexp }, newExperience, (err, result) => {

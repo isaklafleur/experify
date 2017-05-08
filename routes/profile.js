@@ -1,3 +1,7 @@
+// =================
+// PROFILE ROUTES
+// =================
+
 const express = require('express');
 const bcrypt = require('bcrypt');
 const ensureLogin = require('connect-ensure-login');
@@ -11,6 +15,13 @@ router.get('/', ensureLogin.ensureLoggedIn(), (req, res) => {
   // console.log('req.session', req.session.passport.user._id);
   // console.log(req.session);
   User.findById(req.session.passport.user._id, (err, user) => {
+    res.render('profile/show', { user });
+  });
+});
+
+router.get('/:id', (req, res) => {
+  const idusr = req.params.id;
+  User.findById(idusr, (err, user) => {
     res.render('profile/show', { user });
   });
 });

@@ -10,7 +10,9 @@ const ExperienceSchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
   address: String,
-  location: { type: { type: String }, coordinates: [Number] },
+  location: {
+    type: { type: String },
+    coordinates: [Number] },
   category: String,
 },
   {

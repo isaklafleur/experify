@@ -8,14 +8,18 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
+const methodOverride = require('method-override');
+
 
 const app = express();
 
 // Require the Routes
-const index = require('./routes/index');
-const profile = require('./routes/profile');
-const authentication = require('./routes/auth');
-const experiences = require('./routes/experiences');
+const indexRoutes = require('./routes/index');
+const profileRoutes = require('./routes/profile');
+const authenticationRoutes = require('./routes/auth');
+const experienceRoutes = require('./routes/experiences');
+const reviewRoutes = require('./routes/reviews');
+const apiRoutes = require('./routes/api');
 
 // Require Helper files
 const auth = require('./helpers/auth');
@@ -27,6 +31,7 @@ require('./configs/database');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
 
 // Layouts
 app.use(expressLayouts);
@@ -64,10 +69,13 @@ app.use((req, res, next) => {
 });*/
 
 // Routes
-app.use('/', index);
-app.use('/profile', profile);
-app.use('/', authentication);
-app.use('/experiences', experiences);
+app.use('/', indexRoutes);
+app.use('/profile', profileRoutes);
+app.use('/', authenticationRoutes);
+app.use('/experiences', experienceRoutes);
+app.use('/experiences/:id/reviews', reviewRoutes);
+app.use('/api', apiRoutes);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

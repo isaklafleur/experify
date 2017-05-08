@@ -3,18 +3,10 @@
   <div class="container">
     <h1>Welcome to Experify!</h1>
     <p>Let the activities begin!</p>
-    <form action="/search" method="post" class="navbar-form">
-      <div class="form-group">
-        <input type="text" placeholder="Search by Destination or Experience" class="form-control" name="locationName" id="locationName">
-      </div>
-      <button type="submit" class="btn btn-success">Search</button>
-      <div>
-        <input type="radio" id="f-option" name="selector" checked>
-        <label for="f-option">by Destination</label>
-        <input type="radio" id="f-option" name="selector">
-        <label for="f-option">by Experience</label>
-      </div>
-    </form>
+    <input type="text" placeholder="Search by Destination" class="form-control" name="locationName" id="locationName">
+    <button id="goMap" class="btn btn-success"><a href="/search" style="text-decoration:none; color:white;">Search!</a></button><br><br>
+            <input id="lat" class="form-control" placeholder="Full address" name="lat">
+            <input id="long"  class="form-control" placeholder="Full address" name="long">
   </div>
 </div>
 
@@ -114,4 +106,4 @@
 <!-- /container -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://localhost:3000/javascripts/main.js"></script>
+    <script src="http://localhost:3000/javascripts/searchexperience.js"></script>

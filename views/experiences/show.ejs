@@ -1,9 +1,4 @@
 <div class="container">
-  <ol class="breadcrumb">
-  <li><a href="#">Spain</a></li>
-  <li><a href="#">Barcelona</a></li>
-  <li class="active"><%= result.name %></li>
-</ol>
   <h1><%= result.name %></h1>
   <hr>
 <body style="padding-right:0px; padding-left:0px; margin:0px;">
@@ -149,16 +144,25 @@
 
 <hr>
 
-<h3><%= result.address %></h3>
+<h4>Location: <%= result.address %></h4>
 <div>
 
-<h4>Hosted by: <a href="/profile/<%= result.user %>"><%= result.user %></a></h4>
+<strong>Hosted by: <a href="/profile/<%= result.user %>"><%= result.user %></a></strong><br>
 
 <strong>Category:</strong><%= result.category %><br>
 <strong>Price:</strong>$<%= result.price %><br>
 <strong>Description:</strong><%= result.description %><br>
 <strong>Duration:</strong><%= result.duration %><br>
 <strong>Availability:</strong><%= result.availability %><br>
+
+
+    <div id="map"></div>
+    <h3 id="experienceName" data-id="<%= result.id %>"></h3>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbBJPvYIaR5ozIx_0-uWiGeO9cK4IxHww">
+  </script>
+  <script type="text/javascript" src="/javascripts/showmap.js"></script>
+
 
 
 <a class="btn btn-warning" href="/experiences/<%= result._id %>/edit">Edit</a> 
