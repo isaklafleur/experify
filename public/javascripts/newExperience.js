@@ -30,4 +30,5 @@ function getCoordinates() {
 
 $(document).ready(() => {
   init();
+  getCoordinates();
 });
