@@ -11,46 +11,77 @@ const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 
-
 const app = express();
+
+const Chat = require('./models/chat');
+
+// database connection
+require('./configs/database');
 
 // Socket.io
 const io = socketIO();
 app.io = io;
 
 // Socket.io Events
-
-const nicknames = [];
+const users = {};
 
 io.on('connection', (socket) => {
-
+  const query = Chat.find({});
+  query.sort('-created').limit(8).exec((err, docs) => {
+    if (err) throw err;
+    // console.log('sending old messages!');
+    socket.emit('load old msgs', docs);
+  });
   function updateNicknames() {
-    io.emit('username', nicknames);
+    io.emit('username', Object.keys(users));
   }
 
-  console.log('A user connected');
+/*  // console.log('A user connected');
   socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
+    // console.log('user disconnected');
+  });*/
   socket.on('new user', (data, callback) => {
-    if (nicknames.indexOf(data) !== -1) {
+    if (data in users) {
       callback(false);
     } else {
       callback(true);
       socket.nickname = data;
-      nicknames.push(socket.nickname);
+      users[socket.nickname] = socket;
       updateNicknames();
     }
   });
 
-  socket.on('send message', (data) => {
-    console.log('new message: ', data);
-    io.emit('new message', { msg: data, nick: socket.nickname });
+  socket.on('send message', (data, callback) => {
+    let msg = data.trim();
+    if (msg.substr(0, 3) === '/w ') {
+      msg = msg.substr(3);
+      const index = msg.indexOf(' ');
+      if (index !== -1) {
+        const name = msg.substr(0, index);
+        msg = msg.substr(index + 1);
+        if (name in users) {
+          users[name].emit('whisper', { msg, nick: socket.nickname });
+          // console.log('whisper!');
+        } else {
+          callback('Error: enter a valid user');
+        }
+      } else {
+        callback('Error: Please enter a message for your whipser.');
+      }
+    } else {
+      // console.log('new message: ', data);
+      const newMsg = new Chat({ msg: msg, nick: socket.nickname });
+      newMsg.save((err) => {
+        if (err) throw err;
+        io.emit('new message', { msg, nick: socket.nickname });
+      });
+    }
     // socket.broadcast.emit('chat message', msg); // sent to everyone, but not to me
   });
   socket.on('disconnect', (data) => {
     if (!socket.nickname) return;
-    nicknames.splice(nicknames.indexOf(socket.nickname), 1);
+    delete users[socket.nickname];
+    // nicknames.splice(nicknames.indexOf(socket.nickname), 1);
     updateNicknames();
   });
 });
@@ -67,9 +98,6 @@ const ChatRoutes = require('./routes/chat');
 // Require Helper files
 const auth = require('./helpers/auth');
 const passport = require('./helpers/passport');
-
-// database connection
-require('./configs/database');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

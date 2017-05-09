@@ -15,6 +15,13 @@
    float: left;
    border: 1px #000 solid;
  }
+ .error {
+   color: red;
+ }
+ .whisper {
+   color: gray;
+   font-style: italic;
+ }
 </style>
 
 <div id="nickWrap">
@@ -63,13 +70,30 @@
       $('#users').html(html);
     });
     $('#chatform').submit(function () {
-      socket.emit('send message', $('#m').val()); // instead of $('#m).val() we can send an object // { name: 'Isak', msg: 'Hello' }
+      socket.emit('send message', $('#m').val(), (data) => {
+        $('#messages').append(`<span class="error">${data}</b></span><br />`);
+      });
       $('#m').val('');
       return false;
     });
+
+    socket.on('load old msgs', (docs) => {
+      // console.log(docs);
+      for (var i=docs.length-1; i >= 0; i--) {
+        displayMessage(docs[i]);
+      }
+    });
+
     socket.on('new message', (data) => {
       // $('#messages').append($('<li>').text(data));
-      $('#messages').append(`<b>${data.nick}: </b>${data.msg}<br />`);
+      displayMessage(data);
     });
+    socket.on('whisper', (data) => {
+      $('#messages').append(`<span class="whisper"><b>${data.nick}: </b>${data.msg}</span><br />`);
+    });
+
+    function displayMessage(data) {
+      $('#messages').append(`<span class="msg"><b>${data.nick}: </b>${data.msg}</span><br />`);
+    }
   });
 </script>
