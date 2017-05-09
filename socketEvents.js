@@ -1,4 +1,4 @@
-module.exports = (io) => {
+exports = module.exports = (io) => {
   // Set socket.io listeners.
   io.on('connection', (socket) => {
     console.log('a user connected');
@@ -14,12 +14,12 @@ module.exports = (io) => {
       socket.leave(conversation);
       console.log(`left ${conversation}`);
     });
-    socket.on('new message', (conversation) => {
+    socket.on('chat message', (conversation) => {
       io.sockets.in(conversation).emit('refresh messages', conversation);
     });
 
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+      // console.log('user disconnected');
     });
   });
 };

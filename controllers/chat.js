@@ -2,7 +2,7 @@ const Conversation = require('../models/conversation');
 const Message = require('../models/message');
 const User = require('../models/user');
 
-exports.getConversations = (req, res, next) => {
+/*exports.getConversations = (req, res, next) => {
   // Only return one message from each conversation to display as snippet
   Conversation.find({ participants: req.user._id })
     .select('_id')
@@ -34,9 +34,9 @@ exports.getConversations = (req, res, next) => {
           });
       });
     });
-};
+};*/
 
-exports.getConversation = (req, res, next) => {  
+/*exports.getConversation = (req, res, next) => {  
   Message.find({ conversationId: req.params.conversationId })
     .select('createdAt body author')
     .sort('-createdAt')
@@ -52,9 +52,9 @@ exports.getConversation = (req, res, next) => {
 
       res.status(200).json({ conversation: messages });
     });
-};
+};*/
 
-exports.newConversation = (req, res, next) => {  
+/*exports.newConversation = (req, res, next) => {  
   if (!req.params.recipient) {
     res.status(422).send({ error: 'Please choose a valid recipient for your message.' });
     return next();
@@ -92,8 +92,8 @@ exports.newConversation = (req, res, next) => {
     });
   });
 };
-
-exports.sendReply = (req, res, next) => {
+*/
+/*exports.sendReply = (req, res, next) => {
   const reply = new Message({
     conversationId: req.params.conversationId,
     body: req.body.composedMessage,
@@ -109,4 +109,4 @@ exports.sendReply = (req, res, next) => {
     res.status(200).json({ message: 'Reply successfully sent!' });
     return (next);
   });
-};
+};*/

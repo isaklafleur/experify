@@ -1,23 +1,75 @@
 <h1>Chat</h1>
+
 <head>
-<link rel="stylesheet" href="http://localhost:3000/stylesheets/style-socketio.css">
+  <!--<link rel="stylesheet" href="http://localhost:3000/stylesheets/style-socketio.css">-->
+</head>
+
+<style>
+ #chat {
+   height: 500px;
+ }
+ #contentWrap {
+   display: none;
+ }
+ #contentWrap {
+   float: left;
+   border: 1px #000 solid;
+ }
+</style>
+
+<div id="nickWrap">
+  <p>Enter a username: </p>
+  <p id="nickError"></p>
+  <form id="setNick">
+    <input size="35" id="nickname">
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div id="contentWrap">
+  <div id="chatWrap">
+  <ul id="messages"></ul>
+  <form id="chatform" action="">
+    <input id="m" autocomplete="off" />
+    <button>Send</button>
+  </form>
+  </div><div id="users"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
 <script>
   $(function () {
     var socket = io();
-    $('form').submit(function(){
-      socket.emit('chat message', $('#m').val());
+
+    $('#setNick').submit(function(e) {
+      e.preventDefault();
+      socket.emit('new user', $('#nickname').val(), function(data) {
+        if(data) {
+          $('#nickWrap').hide();
+          $('#contentWrap').show();
+        } else {
+          $('#nickError').html('That username is already taken');
+        }
+      });
+      $('#nickname').val('');
+    });
+
+    socket.on('username', function(data) {
+      var html ="";
+      for (var i=0; i < data.length; i++) {
+        html += data[i] + '<br/>'
+      }
+      $('#users').html(html);
+    });
+    $('#chatform').submit(function () {
+      socket.emit('send message', $('#m').val()); // instead of $('#m).val() we can send an object // { name: 'Isak', msg: 'Hello' }
       $('#m').val('');
       return false;
     });
+    socket.on('new message', (data) => {
+      // $('#messages').append($('<li>').text(data));
+      $('#messages').append(`<b>${data.nick}: </b>${data.msg}<br />`);
+    });
   });
 </script>
-</head>
-  <ul id="messages"></ul>
-  <form action="">
-    <input id="m" autocomplete="off" /><button>Send</button>
-  </form>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
-  <script>
-    // var socket = io();
-  </script>

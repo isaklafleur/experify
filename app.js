@@ -2,7 +2,7 @@ const express = require('express');
 const favicon = require('serve-favicon');
 const path = require('path');
 const logger = require('morgan');
-const multer = require('multer');
+// const multer = require('multer');
 const socketIO = require('socket.io');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -19,17 +19,41 @@ const io = socketIO();
 app.io = io;
 
 // Socket.io Events
+
+const nicknames = [];
+
 io.on('connection', (socket) => {
+
+  function updateNicknames() {
+    io.emit('username', nicknames);
+  }
+
   console.log('A user connected');
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-  socket.on('chat message', (msg) => {
-    console.log('message: ', msg);
+  socket.on('new user', (data, callback) => {
+    if (nicknames.indexOf(data) !== -1) {
+      callback(false);
+    } else {
+      callback(true);
+      socket.nickname = data;
+      nicknames.push(socket.nickname);
+      updateNicknames();
+    }
+  });
+
+  socket.on('send message', (data) => {
+    console.log('new message: ', data);
+    io.emit('new message', { msg: data, nick: socket.nickname });
+    // socket.broadcast.emit('chat message', msg); // sent to everyone, but not to me
+  });
+  socket.on('disconnect', (data) => {
+    if (!socket.nickname) return;
+    nicknames.splice(nicknames.indexOf(socket.nickname), 1);
+    updateNicknames();
   });
 });
-
-
 
 // Require the Routes
 const indexRoutes = require('./routes/index');

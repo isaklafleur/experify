@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
 
-const ExperienceSchema = new mongoose.Schema({
+const ExperienceSchema = new Schema({
   name: String,
   price: Number,
   images: [{ type: String }],
   description: String,
   duration: Number,
   availability: [{ type: Date }],
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
   address: String,
   location: { type: { type: String }, coordinates: [Number] },
   category: String,

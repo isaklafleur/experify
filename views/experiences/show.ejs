@@ -6,6 +6,7 @@
 <div>
 
 <strong>Hosted by: <a href="/profile/<%= result.user._id %>"><%= result.user.name %></a></strong><br><br>
+<a class="btn btn-success" href="/experiences/<%=result._id %>/chat">Contact Host</a><br><br>
 <strong><i class="fa fa-list" aria-hidden="true"></i> </strong><%= result.category %><br>
 <strong><i class="fa fa-money" aria-hidden="true"></i> </strong>$<%= result.price %><br>
 <strong><i class="fa fa-info" aria-hidden="true"></i> </strong><%= result.description %><br>
