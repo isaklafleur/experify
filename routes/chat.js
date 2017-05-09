@@ -5,6 +5,7 @@
 // const ChatController = require('../controllers/chat');
 const express = require('express');
 
+const auth = require('../helpers/auth.js');
 const Conversation = require('../models/conversation');
 const Message = require('../models/message');
 const Chat = require('../models/chat');
@@ -12,9 +13,27 @@ const Chat = require('../models/chat');
 
 const router = express.Router();
 
-router.get('/test', (req, res, next) => {
+router.get('/:idexp/:idhost/:idbuyer', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
   res.render('chats/show');
+  const idexp = req.params.idexp;
 });
+
+// SHOW one experience
+router.get('/:id', (req, res, next) => {
+  const idexp = req.params.id;
+  Experience.findOne({ _id: idexp })
+  .populate('user')
+  .exec((err, result) => {
+    if (err) {
+      next(err);
+    } else {
+      // console.log(result);
+      res.render('experiences/show', { result });
+    }
+  });
+});
+
+
 
 // View messages to and from authenticated user
 router.get('/', (req, res, next) => {

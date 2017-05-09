@@ -123,7 +123,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(auth.setCurrentUser);
+// app.use(auth.setCurrentUser);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -133,6 +133,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // adding our own middleware so all pages can access currentUser
 app.use((req, res, next) => {
+  // console.log('hola ', req.user);
   res.locals.currentUser = req.user;
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
@@ -145,7 +146,7 @@ app.use('/profile', profileRoutes);
 app.use('/', authenticationRoutes);
 app.use('/experiences', experienceRoutes);
 app.use('/experiences/:id/reviews', reviewRoutes);
-app.use('/experiences/:id/chat/', ChatRoutes);
+app.use('/conversation/', ChatRoutes);
 app.use('/api', apiRoutes);
 
 

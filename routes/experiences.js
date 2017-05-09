@@ -3,7 +3,6 @@
 // =================
 
 const express = require('express');
-const ensureLogin = require('connect-ensure-login');
 
 const router = express.Router();
 const auth = require('../helpers/auth.js');
@@ -22,7 +21,7 @@ router.get('/', (req, res, next) => {
 });
 
 // Display NEW form to create new experience
-router.get('/new', ensureLogin.ensureLoggedIn(), (req, res) => {
+router.get('/new', auth.checkLoggedIn('You must be login', '/login'), (req, res) => {
   res.render('experiences/new');
 });
 
@@ -84,7 +83,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 // Display EDIT form
-router.get('/:id/edit', (req, res, next) => {
+router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
   const idexp = req.params.id;
   Experience.findOne({ _id: idexp }, (err, result) => {
     // console.log(result);
