@@ -3,6 +3,7 @@ const favicon = require('serve-favicon');
 const path = require('path');
 const logger = require('morgan');
 const multer = require('multer');
+const socketIO = require('socket.io');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -13,6 +14,23 @@ const methodOverride = require('method-override');
 
 const app = express();
 
+// Socket.io
+const io = socketIO();
+app.io = io;
+
+// Socket.io Events
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+  socket.on('chat message', (msg) => {
+    console.log('message: ', msg);
+  });
+});
+
+
+
 // Require the Routes
 const indexRoutes = require('./routes/index');
 const profileRoutes = require('./routes/profile');
@@ -20,6 +38,7 @@ const authenticationRoutes = require('./routes/auth');
 const experienceRoutes = require('./routes/experiences');
 const reviewRoutes = require('./routes/reviews');
 const apiRoutes = require('./routes/api');
+const ChatRoutes = require('./routes/chat');
 
 // Require Helper files
 const auth = require('./helpers/auth');
@@ -74,6 +93,7 @@ app.use('/profile', profileRoutes);
 app.use('/', authenticationRoutes);
 app.use('/experiences', experienceRoutes);
 app.use('/experiences/:id/reviews', reviewRoutes);
+app.use('/experiences/:id/chat/', ChatRoutes);
 app.use('/api', apiRoutes);
 
 
