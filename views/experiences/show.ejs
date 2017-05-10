@@ -5,9 +5,29 @@
 <h4><i class="fa fa-map-marker" aria-hidden="true"></i> <%= result.address %></h4>
 <div>
 
-<strong>Hosted by: <a href="/profile/<%= result.user._id %>"><%= result.user.name %></a></strong><br><br>
+<strong>Hosted by: <a href="/profile/<%= result.user._id %>"><%= result.user.name %></a></strong><br>
+<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span><br><br>
 <% if(currentUser) { %>
-<a class="btn btn-success" href="/conversation/<%= result._id %>/<%= result.user._id %>/<%= currentUser._id %>">Contact Host</a><br><br>
+
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Contact Host <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <form action="/conversation/<%= result._id %>/new/<%= result.user._id %>" method="post">
+    <textarea name="composedMessage" class="form-control" rows="5" placeholder="Please write a message host to start a chat"></textarea>
+    <button class="btn btn-sm btn-success" style="margin-top: 5px;" type="submit">Start Chat!</button>
+  </ul>
+</div><br><br>
+
+
+
+<!--<a class="btn btn-success" href="/conversation/<%= result._id %>/<%= result.user._id %>/<%= currentUser._id %>">Contact Host</a><br><br>-->
 <% } else { %>
 <a class="btn btn-primary" href="/login">Please Login to Contact Host</a><br><br>
 <% } %>

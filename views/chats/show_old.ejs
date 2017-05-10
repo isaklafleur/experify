@@ -1,0 +1,101 @@
+<div class="container">
+<h1>Chat</h1>
+
+<head>
+  <!--<link rel="stylesheet" href="http://localhost:3000/stylesheets/style-socketio.css">-->
+</head>
+
+<style>
+ #chat {
+   height: 500px;
+ }
+ #contentWrap {
+   display: none;
+ }
+ #contentWrap {
+   float: left;
+   border: 1px #000 solid;
+ }
+ .error {
+   color: red;
+ }
+ .whisper {
+   color: gray;
+   font-style: italic;
+ }
+</style>
+
+<div id="nickWrap">
+  <p>Enter a username: </p>
+  <p id="nickError"></p>
+  <form id="setNick">
+    <input size="35" id="nickname">
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div id="contentWrap">
+  <div id="chatWrap">
+  <ul id="messages"></ul>
+  <form id="chatform" action="">
+    <input id="m" autocomplete="off" />
+    <button>Send</button>
+  </form>
+  </div><div id="users"></div>
+</div>
+<div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+<script>
+  $(function () {
+    var socket = io();
+
+    $('#setNick').submit(function(e) {
+      e.preventDefault();
+      socket.emit('new user', $('#nickname').val(), function(data) {
+        if(data) {
+          $('#nickWrap').hide();
+          $('#contentWrap').show();
+        } else {
+          $('#nickError').html('That username is already taken');
+        }
+      });
+      $('#nickname').val('');
+    });
+
+    socket.on('username', function(data) {
+      var html ="";
+      for (var i=0; i < data.length; i++) {
+        html += data[i] + '<br/>'
+      }
+      $('#users').html(html);
+    });
+    $('#chatform').submit(function () {
+      socket.emit('send message', $('#m').val(), (data) => {
+        $('#messages').append(`<span class="error">${data}</b></span><br />`);
+      });
+      $('#m').val('');
+      return false;
+    });
+
+    socket.on('load old msgs', (docs) => {
+      // console.log(docs);
+      for (var i=docs.length-1; i >= 0; i--) {
+        displayMessage(docs[i]);
+      }
+    });
+
+    socket.on('new message', (data) => {
+      // $('#messages').append($('<li>').text(data));
+      displayMessage(data);
+    });
+    socket.on('whisper', (data) => {
+      $('#messages').append(`<span class="whisper"><b>${data.nick}: </b>${data.msg}</span><br />`);
+    });
+
+    function displayMessage(data) {
+      $('#messages').append(`<span class="msg"><b>${data.nick}: </b>${data.msg}</span><br />`);
+    }
+  });
+</script>
