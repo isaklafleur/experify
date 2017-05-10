@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const dbName = 'project2-experify';
 const port = '27017';
 
+mongoose.Promise = global.Promise;
+
 // connect to the database
 mongoose.connect(`mongodb://localhost:${port}/${dbName}`);
 

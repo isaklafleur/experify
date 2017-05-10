@@ -1,19 +1,26 @@
 <div class="container">
   <h1>Experiences</h1>
   <hr>
-  <% result.forEach(experience => { %>
-    <div class="col-xs-6 col-sm-3">
-      <div class="thumbnail">
-        <img class="front-image-thumbnail" src="<%= experience.images[0] %>" alt="...">
-        <div class="caption">
-          <strong>$<%= experience.price %></strong> <a href="/experiences/<%= experience._id %>/"><%= experience.name %></a><br>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+
+    <div class="row">
+      <% result.forEach(experience => { %>
+        <a href="/experiences/<%= experience._id %>/"><div class="col-sm-6 col-md-4">
+          <div class="thumbnail" style="min-height: 400px !important;">
+            <img class="front-image-thumbnail" src="<%= experience.images[0] %>" alt="<%= experience.name %>">
+            <div class="caption">
+              <h3>
+                
+                  <%= experience.name %>
+              </h3><br></a>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span><br>
+              <p><strong>$<%= experience.price %></strong></p>
+            </div>
+          </div>
         </div>
-      </div>
+        <% }); %>
     </div>
-  <% }); %>
   </div>

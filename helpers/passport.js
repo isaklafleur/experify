@@ -1,35 +1,39 @@
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const mongoose = require('mongoose');
 const LocalStrategy = require('passport-local').Strategy;
-const FbStrategy = require('passport-facebook').Strategy;
-
-// Require the Mongoose Model
 const User = require('../models/user');
-
-// require('dotenv').config();
-// const FACEBOOK_CLIENT_ID = process.env.FACEBOOK_CLIENT_ID;
-// const FACEBOOK_CLIENTSECRET = process.env.FACEBOOK_CLIENTSECRET;
+const FbStrategy = require('passport-facebook').Strategy;
+const mongoose = require('mongoose');
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
 });
 
-passport.deserializeUser((id, cb) => {
-  if (mongoose.Types.ObjectId.isValid(id)) {
+passport.deserializeUser((user, cb) => {
+  if (mongoose.Types.ObjectId.isValid(user._id)) {
     User.findOne({
-      _id: id,
+      _id: user._id,
     }, (err, user) => {
       if (err) {
         return cb(err);
       }
+
       cb(null, user);
     });
   } else {
-    cb(null, id);
+    const providerIdField = '';
+    if (user.provider === 'facebook') {
+      User.findOne({
+        facebookId: user.id,
+      }, (err, dbUser) => {
+        if (err) {
+          return cb(err);
+        }
+        cb(null, dbUser);
+      });
+    }
   }
 });
-
 
 passport.use(new LocalStrategy({
   passReqToCallback: true,
@@ -52,32 +56,47 @@ passport.use(new LocalStrategy({
         message: 'Incorrect password',
       });
     }
+
     return next(null, user);
   });
 }));
+
 
 passport.use(new FbStrategy({
   clientID: '1479326355452671',
   clientSecret: '2231e9c27a40d4b6546a65ec27f80eba',
   callbackURL: 'http://localhost:3000/auth/facebook/callback',
-  profileFields: ['id', 'displayName', 'photos', 'email'],
+  profileFields: ['id', 'displayName', 'photos', 'email', 'gender', 'name', 'about', 'hometown'],
 }, (accessToken, refreshToken, profile, done) => {
+  console.log('profile', JSON.stringify(profile, null, 2));
   User.findOne({
-    facebookId: profile.id,
+    email: profile.emails[0].value,
   }, (err, user) => {
     if (err) {
       console.log(err); // handle errors!
     }
+    console.log('user: ', user);
     if (!err && user !== null) {
-      done(null, user);
-    } else {
-      console.log(profile);
-      user = new User({
+      console.log("hello!");
+      const updateuser = {
         facebookId: profile.id,
         name: profile.displayName,
-        pic_path: profile.photos[0].value,
+        pic_path: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
+      };
+      User.findOneAndUpdate({ email: profile.emails[0].value }, updateuser, (err, result) => {
+        // console.log("result ", result);
       });
-      user.save((err) => {
+      // done(null, user);
+    } else {
+      console.log('profile', JSON.stringify(profile, null, 2));
+      const newuser = new User({
+        facebookId: profile.id,
+        name: profile.displayName,
+        pic_path: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
+        email: profile.emails[0].value,
+      });
+      // console.log('user', user);
+      newuser.save((err) => {
         if (err) {
           console.log(err); // handle errors!
         } else {

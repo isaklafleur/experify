@@ -1,9 +1,9 @@
 function init() {
-  const input = document.getElementById('searchTextField');
+  const input = document.getElementById('locationName');
   const autocomplete = new google.maps.places.Autocomplete(input);
 }
 
-$('#searchTextField').change(() => {
+$('#locationName').change(() => {
   setTimeout(getCoordinates, 1000);
 });
 
@@ -16,7 +16,7 @@ function getCoordinates() {
       lng: 0,
     },
     radius: '500',
-    query: $('#searchTextField').val(),
+    query: $('#locationName').val(),
   };
 
   service.textSearch(request, (places) => {

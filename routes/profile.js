@@ -4,7 +4,6 @@
 
 const express = require('express');
 const bcrypt = require('bcrypt');
-const ensureLogin = require('connect-ensure-login');
 const auth = require('../helpers/auth');
 
 const router = express.Router();
@@ -58,7 +57,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Display Edit form
-router.get('/:id/edit', ensureLogin.ensureLoggedIn(), (req, res) => {
+router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req, res) => {
   const idUser = req.params.id;
   User.findOne({
     _id: idUser,

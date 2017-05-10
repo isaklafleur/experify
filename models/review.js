@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
-const ReviewSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const ReviewSchema = new Schema({
   comment: String,
   author: {
     id: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
     },
     name: String,
