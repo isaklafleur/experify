@@ -1,22 +1,22 @@
 <div class="container">
   <h1>Inbox</h1>
-currentuser id: <%= currentUser._id %><br><br>
+  <!--currentuser id: <%= currentUser._id %><br><br>
 currentuser name: <%= currentUser.name %><br><br>
+-->
 
-  
-<pre><%= JSON.stringify(conversations, null, 2) %></pre>
+  <!--<pre><%= JSON.stringify(conversations, null, 2) %></pre>-->
 
-<% conversations.forEach(conversation => { %>
-
+  <% conversations.forEach(conversation => { %>
     <div class="row">
-    <div class="col-xs-4">
+      <div class="col-xs-4">
+        <%= conversation[0].author.name %><br>
+          <%= conversation[0].createdAt %>
+      </div>
+      <div class="col-xs-4">
+        <a href="<%=conversation[0].conversationId.experience %>/<%= conversation[0].conversationId._id %>/">
+          <%= conversation[0].body %>
+        </a>
+      </div>
     </div>
-    <div class="col-xs-4">
-      <%= conversation[0].author.name %><br><%= conversation[0].createdAt %>
-    </div>
-    <div class="col-xs-4">
-      <a href="<%=conversation[0].conversationId.experience %>/<%= conversation[0].conversationId._id %>/"><%= conversation[0].body %></a>
-    </div>
-</div>
-<% }); %>
+    <% }); %>
 </div>

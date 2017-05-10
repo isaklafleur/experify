@@ -17,6 +17,9 @@ background: linear-gradient(to left, #F7BB97, #DD5E89); /* W3C, IE 10+/ Edge, Fi
   color: #DAA520;
 }
 
+.messages {
+  align-content: left !important;
+}
 .navbar-brand {
   text-transform: uppercase;
   letter-spacing: 5px;
@@ -82,8 +85,6 @@ background: linear-gradient(to left, #F7BB97, #DD5E89); /* W3C, IE 10+/ Edge, Fi
 
 #locationName {
   width: 300px;
-  padding: 5px;
-  margin-bottom: 5px;
 }
 
 #map {

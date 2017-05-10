@@ -12,6 +12,8 @@ const methodOverride = require('method-override');
 
 const app = express();
 
+// const Chat = require('./models/chat');
+
 // database connection
 require('./configs/database');
 
@@ -26,7 +28,6 @@ io.on('connection', (socket) => {
   function updateNicknames() {
     io.emit('username', Object.keys(users));
   }
-
   socket.on('new user', (data, callback) => {
     if (data in users) {
       callback(false);
@@ -37,10 +38,25 @@ io.on('connection', (socket) => {
       updateNicknames();
     }
   });
-
   socket.on('send message', (data, callback) => {
-      io.emit('new message', { msg: data, nick: socket.nickname });
-
+    let msg = data.trim();
+    if (msg.substr(0, 3) === '/w ') {
+      msg = msg.substr(3);
+      const index = msg.indexOf(' ');
+      if (index !== -1) {
+        const name = msg.substr(0, index);
+        msg = msg.substr(index + 1);
+        if (name in users) {
+          users[name].emit('whisper', { msg, nick: socket.nickname });
+        } else {
+          callback('Error: enter a valid user');
+        }
+      } else {
+        callback('Error: Please enter a message for your whipser.');
+      }
+    } else {
+      io.emit('new message', { msg, nick: socket.nickname });
+    }
   });
   socket.on('disconnect', (data) => {
     if (!socket.nickname) return;

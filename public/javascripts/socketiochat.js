@@ -2,8 +2,6 @@
     let socket = io();
     socket.emit('new user', $('#namebuyer').val(), (data) => {
       if (data) {
-        // $('#nickWrap').hide();
-        // $('#contentWrap').show();
       } else {
         $('#nickError').html('That username is already taken');
       }
@@ -31,7 +29,7 @@
     socket.on('username', (data) => {
       let html = '';
       for (let i = 0; i < data.length; i++) {
-        html += `${data[i]  }<br/>`;
+        html += `<i style="color: lime;" class="fa fa-circle" aria-hidden="true"></i> ${data[i]}<br/>`;
       }
       $('#users').html(html);
     });

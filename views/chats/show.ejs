@@ -1,49 +1,39 @@
 <div class="container">
-<h1>Chat started regarding <%= result.name %></h1>
+  <h1>Conversation regarding -
+    <%= result.name %>
+  </h1>
 
-<head>
-  <!--<link rel="stylesheet" href="http://localhost:3000/stylesheets/style-socketio.css">-->
-</head>
+  <div class="row">
+    <div class="col-xs-6">
+      <b>Conversation</b>
+    </div>
 
-<style>
- #chat {
+    <div class="col-xs-6">
+      <b>Users Online:</b>
+    </div>
 
- }
- #contentWrap {
-   float: left;
-   border: 1px #000 solid;
-      height: 500px;
-   width: 500px;
- }
- .error {
-   color: red;
- }
- .whisper {
-   color: gray;
-   font-style: italic;
- }
-</style>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <p id="messages"></p>
+    </div>
+    <div class="col-xs-6" id="users"></div>
+  </div>
+  <div class="row">
+    <form id="chatform" action="">
+      <textarea style="width:100%;" id="m" autocomplete="off" autofocus></textarea><br>
+      <button class="btn btn-success" action="/conversation/<%= newMessage.conversationId %>" method="POST">Send</button>
+    </form>
+  </div>
+  <div>
 
-<!--<%= result %><br><br>-->
+    <input type="hidden" name="namehost" value="<%= result.user.name %>"><br>
+    <input type="hidden" id="namebuyer" name="namebuyer" value="<%= currentUser.name %>"><br>
+    <input type="hidden" size=30 name="idexperience" value="<%=result._id %>"><br>
+    <input type="hidden" size=30 name="idhost" value="<%=result.user._id %>"><br>
+    <input type="hidden" size=30 name="idbuyer" id="idsender" value="<%= currentUser._id %>"><br><br>
+    <input type="hidden" size=30 id="conversationId" name="conversationId" value="<%= newMessage.conversationId %>"><br><br>
 
-Host: <input type="text" name="namehost" value="<%= result.user.name %>"><br>
-Buyer<input type="text" id="namebuyer" name="namebuyer" value="<%= currentUser.name %>"><br>
-idexperience: <input type="text" size=30 name="idexperience" value="<%=result._id %>"><br>
-idhost: <input type="text" size=30 name="idhost" value="<%=result.user._id %>"><br>
-idbuyer: <input type="text" size=30 name="idbuyer" id="idsender" value="<%= currentUser._id %>"><br><br>
-conversationId: <input type="text" size=30 id="conversationId" name="conversationId" value="<%= newMessage.conversationId %>"><br><br>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
 
-<div id="contentWrap">
-  <div id="chatWrap">
-  <ul id="messages"></ul>
-  <form id="chatform" action="">
-    <input id="m" autocomplete="off" />
-    <button action="/conversation/<%= newMessage.conversationId %>" method="POST">Send</button>
-  </form>
-  </div><div id="users"></div>
-</div>
-<div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
-
-<script src="/javascripts/socketiochat.js"></script>
+    <script src="/javascripts/socketiochat.js"></script>
