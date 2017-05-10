@@ -13,7 +13,6 @@
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span><br><br>
 <% if(currentUser) { %>
 
-<!-- Single button -->
 <div class="btn-group">
   <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Contact Host <span class="caret"></span>
@@ -25,9 +24,6 @@
   </ul>
 </div><br><br>
 
-
-
-<!--<a class="btn btn-success" href="/conversation/<%= result._id %>/<%= result.user._id %>/<%= currentUser._id %>">Contact Host</a><br><br>-->
 <% } else { %>
 <a class="btn btn-primary" href="/login">Please Login to Contact Host</a><br><br>
 <% } %>
@@ -37,7 +33,6 @@
 <strong><i class="fa fa-info" aria-hidden="true"></i> </strong><%= result.description %><br>
 <strong><i class="fa fa-clock-o" aria-hidden="true"></i> </strong><%= result.duration %> hours<br>
 <strong><i class="fa fa-calendar" aria-hidden="true"></i> </strong>All days<br><br>
-
     <div id="map"></div>
     <h3 id="experienceName" data-id="<%= result.id %>"></h3>
   <script

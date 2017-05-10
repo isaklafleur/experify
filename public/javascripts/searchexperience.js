@@ -7,7 +7,6 @@ $('#locationName').change(() => {
   setTimeout(getCoordinates, 100);
 });
 
-
 function getCoordinates() {
   const service = new google.maps.places.PlacesService(document.createElement('div'));
 

@@ -3,14 +3,17 @@
 <h1><%= user.name %></h1>
 <hr>
 <img class="img-circle img-responsive profile-img" src="<%= user.pic_path %>"><br>
-<h3><%= user.location.city%>, <%= user.location.country %></h3>
+<% if (currentUser.location.city !== undefined ) { %>
+  <h3><%= user.location.city%>, <%= user.location.country %></h3>
+<% } %> 
+
 
 <p><%= user.about %></p>
 <a class="btn btn-warning" href="/profile/<%=user._id%>/edit">Edit Profile</a> 
 <a href="/experiences/new" class="btn btn-success">Add Experience</a><br>
 
 <hr>
-<h3>Experiences</h3>
+<h3>My Experiences</h3>
 <% user.experiences.forEach(experience => { %>
 <h4><a href="/experiences/<%= experience._id %>"><%= experience.name %></a></h4>
 <strong>Description: </strong><%= experience.description %><br>
@@ -27,7 +30,7 @@
 <h3>Reviews From Experifiers (63)</h3><br>
 
 
-<a href="#"><img src="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-circle-128.png"><br>John</a>
+<a href="#"><img style="zoom: 50%;" src="http://stephanvandijk.com/img/profile_round.png"><br><strong>John</strong></a>
 <p>Good intimate jazz performance. Started on time but the band, singer and fellow travelers were not introduced as one would think for this type of experience. The house dog roaming and trying to eat guests food was also distracting.</p>
 ...
 ... 

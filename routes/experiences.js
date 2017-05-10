@@ -15,7 +15,6 @@ router.get('/', (req, res, next) => {
     if (err) {
       next(err);
     }
-    // console.log(result);
     res.render('experiences/index', { result });
   });
 });
@@ -59,14 +58,6 @@ router.post('/', (req, res) => {
   });
 });
 
-/*// SHOW one experience
-router.get('/:id', (req, res, next) => {
-  const idexp = req.params.id;
-  Experience.findOne({ _id: idexp }, (err, result) => {
-    res.render('experiences/show', { result });
-  });
-});*/
-
 // SHOW one experience
 router.get('/:id', (req, res, next) => {
   const idexp = req.params.id;
@@ -76,7 +67,6 @@ router.get('/:id', (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      // console.log(result);
       res.render('experiences/show', { result });
     }
   });
@@ -86,7 +76,6 @@ router.get('/:id', (req, res, next) => {
 router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
   const idexp = req.params.id;
   Experience.findOne({ _id: idexp }, (err, result) => {
-    // console.log(result);
     res.render('experiences/edit', { result });
   });
 });
@@ -109,13 +98,12 @@ router.post('/:id', (req, res, next) => {
     },
     category: req.body.category,
   };
-  
+
   Experience.findOneAndUpdate({ _id: idexp }, newExperience, (err, result) => {
     if (err) {
       return res.render('experiences/edit', { errors: newExperience.errors });
-    } else {
-      return res.redirect(`/experiences/${idexp}`);
     }
+    return res.redirect(`/experiences/${idexp}`);
   });
 });
 

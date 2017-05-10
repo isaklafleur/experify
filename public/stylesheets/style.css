@@ -3,6 +3,11 @@ body {
   padding-bottom: 40px;
 }
 
+#goMap {
+  margin-top: 10px;
+  padding: 10px;
+}
+
 .first-jumbo {
   background-image:url('/images/tropical-background.jpg');
   background-size: cover; 
