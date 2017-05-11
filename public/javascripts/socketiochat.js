@@ -8,13 +8,13 @@
     });
 
     const conversationId = document.getElementById('conversationId').value;
-    const url = `http://localhost:3000/conversation/${conversationId}`;
+    const url = `/conversation/${conversationId}`;
 
     $.ajax({
       url,
       method: 'GET',
       success (chathistory) {
-        console.log(chathistory);
+        // console.log(chathistory);
         for (var i = chathistory.conversation.length - 1; i >= 0; i--) {
           // console.log(chathistory);
           $('#messages').append(`<span class="msg"><b>${chathistory.conversation[i].author.name}: </b>${chathistory.conversation[i].body}</span><br />`);
@@ -37,7 +37,7 @@
     $('#chatform').submit((e) => {
       e.preventDefault();
       const conversationId = document.getElementById('conversationId').value;
-      const url = `http://localhost:3000/conversation/${conversationId}`;
+      const url = `/conversation/${conversationId}`;
       reply = {
         composedMessage: $('#m').val(),
         idsender: $('#idsender').val(),
@@ -47,7 +47,7 @@
         method: 'POST',
         data: reply,
         success (res) {
-          console.log(res);
+          // console.log(res);
         },
         error(error) {
           console.log('error');
@@ -62,7 +62,7 @@
     });
 
     socket.on('new message', (data) => {
-      console.log('new notification');
+      // console.log('new notification');
       displayMessage(data);
     });
     socket.on('whisper', (data) => {

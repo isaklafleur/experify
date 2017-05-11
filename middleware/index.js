@@ -2,7 +2,6 @@
 // MIDDLEWARE
 // ====================
 const Experience = require('../models/experience');
-const Review = require('../models/review');
 
 const middlewareObj = {};
 

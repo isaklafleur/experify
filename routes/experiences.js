@@ -25,7 +25,7 @@ router.get('/new', auth.checkLoggedIn('You must be login', '/login'), (req, res)
 });
 
 // Save experience to database
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
@@ -81,7 +81,7 @@ router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req,
 });
 
 // Update experience to database
-router.post('/:id', (req, res, next) => {
+router.post('/:id', (req, res) => {
   const idexp = req.params.id;
 
   const newExperience = {
@@ -108,7 +108,7 @@ router.post('/:id', (req, res, next) => {
 });
 
 // DELETE a experience
-router.get('/:id/delete', (req, res, next) => {
+router.get('/:id/delete', (req, res) => {
   const idexp = req.params.id;
   Experience.findOneAndRemove({ _id: idexp }, (err, result) => {
     res.redirect('/experiences');
