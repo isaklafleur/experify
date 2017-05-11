@@ -3,10 +3,14 @@
   <div class="container">
     <h1 class="front-page-text">Welcome to Experify!</h1>
     <p class="front-page-text">Let the activities begin!</p>
-    <input type="text" placeholder="Search by Destination" class="form-control" name="locationName" id="locationName">
-    <button id="goMap" class="btn btn-success"><a href="/search" style="text-decoration:none; color:white;"><i class="fa fa-search" aria-hidden="true"></i> Search</a></button><br><br>
-    <input id="lat" type="hidden" class="form-control" placeholder="Full address" name="lat">
-    <input id="long" type="hidden" class="form-control" placeholder="Full address" name="long">
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="text" placeholder="Search by Destination" class="form-control" name="searchTextField" id="searchTextField">
+      </div>
+      <button id="goMap" class="btn btn-success"><a href="/search" style="text-decoration:none; color:white;"><i class="fa fa-search" aria-hidden="true"></i> Search</a></button>
+      <input id="lat" type="hidden" class="form-control" placeholder="Full address" name="lat">
+      <input id="long" type="hidden" class="form-control" placeholder="Full address" name="long">
+    </form>
   </div>
 </div>
 
@@ -15,34 +19,31 @@
   <div class="row">
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-        <img class="front-image-thumbnail" src="images/surfing-Rio-de-Janeiro.jpg" alt="...">
+        <a href="#"><img class="front-image-thumbnail" src="images/surfing-Rio-de-Janeiro.jpg" alt="...">
         <div class="caption">
-          <h3>Thumbnail label</h3>
+          <h3>Learn surfing in Rio de Janeiro</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet aliquam sem, sit amet laoreet eros sagittis
-            eleifend. Quisque dignissim accumsan pellentesque.</p>
-          <p><a href="#" class="btn btn-default" role="button">Button</a></p>
+            eleifend. Quisque dignissim accumsan pellentesque.</p></a>
         </div>
       </div>
     </div>
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-        <img class="front-image-thumbnail" src="images/golf-06.jpg" alt="...">
+        <a href="#"><img class="front-image-thumbnail" src="images/golf-06.jpg" alt="...">
         <div class="caption">
-          <h3>Thumbnail label</h3>
+          <h3>Go Golfing with a Pro outside of London</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet aliquam sem, sit amet laoreet eros sagittis
-            eleifend. Quisque dignissim accumsan pellentesque.</p>
-          <p><a href="#" class="btn btn-default" role="button">Button</a></p>
+            eleifend. Quisque dignissim accumsan pellentesque.</p></a>
         </div>
       </div>
     </div>
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-        <img class="front-image-thumbnail" src="images/Fishing.jpg" alt="...">
+        <a href="#"><img class="front-image-thumbnail" src="images/Fishing.jpg" alt="...">
         <div class="caption">
-          <h3>Thumbnail label</h3>
+          <h3>Deep Sea Fishing in Miami</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet aliquam sem, sit amet laoreet eros sagittis
-            eleifend. Quisque dignissim accumsan pellentesque.</p>
-          <p><a href="#" class="btn btn-default" role="button">Read More</a></p>
+            eleifend. Quisque dignissim accumsan pellentesque.</p></a>
         </div>
       </div>
     </div>
@@ -65,11 +66,21 @@
         <li>
           <h2>Must-See Attractions</h2>
         </li>
-        <li><h4><a href="#">11-hour guided day trip from London to Windsor Castle, Stonehenge and Bath</a></h4></li>
-        <li><h4><a href="#">Explore Gaudí and modernisme</a></h4></li>
-        <li><h4><a href="#">Eiffel Tower Summit and VIP Lounge Priority Access</a></h4></li>
-        <li><h4><a href="#">Carnival in Rio de Janeiro</a></h4></li>
-        <li><h4><a href="#">The Vasa Museum</a></h4></li>
+        <li>
+          <h4><a href="#">11-hour guided day trip from London to Windsor Castle, Stonehenge and Bath</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">Explore Gaudí and modernisme</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">Eiffel Tower Summit and VIP Lounge Priority Access</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">Carnival in Rio de Janeiro</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">The Vasa Museum</a></h4>
+        </li>
       </ul>
     </div>
     <div class="col-sm-6 col-md-4">
@@ -77,11 +88,21 @@
         <li>
           <h2>Top Destinations</h2>
         </li>
-        <li><h4><a href="#">Barcelona, Spain</a></h4></li>
-        <li><h4><a href="#">Paris, France</a></h4></li>
-        <li><h4><a href="#">Rome, Italy</a></h4></li>
-        <li><h4><a href="#">Rio de Janeiro, Brazil</a></h4></li>
-        <li><h4><a href="#">Stockholm, Sweden</a></h4></li>
+        <li>
+          <h4><a href="#">Barcelona, Spain</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">Paris, France</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">Rome, Italy</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">Rio de Janeiro, Brazil</a></h4>
+        </li>
+        <li>
+          <h4><a href="#">Stockholm, Sweden</a></h4>
+        </li>
       </ul>
     </div>
     <div class="col-sm-6 col-md-4">
@@ -114,4 +135,5 @@
 <!-- /container -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async
   defer></script>
-<script src="http://localhost:3000/javascripts/searchexperience.js"></script>
+<script src="/javascripts/init-getCoordinates-textSearch.js"></script>
+<script src="/javascripts/searchexperience.js"></script>

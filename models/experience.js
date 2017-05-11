@@ -10,7 +10,6 @@ const ExperienceSchema = new Schema({
   duration: Number,
   availability: [{ type: Date }],
   user: { type: Schema.Types.ObjectId, ref: 'User' },
-  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
   address: String,
   location: { type: { type: String }, coordinates: [Number] },
   category: String,

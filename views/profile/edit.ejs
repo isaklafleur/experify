@@ -3,31 +3,31 @@
   <hr>
 
   <form class="form-signin" action="/profile/<%= result._id %>" method="post">
-       <div class="input-group margin-bottom-sm">
-  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-  <input class="form-control" type="text" name="email" value="<%= result.email %>" placeholder="Email address" readonly>
-  </div>
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-    <input class="form-control" name="password" type="password" placeholder="Password" autofocus required>
-  </div>
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-    <input class="form-control" name="name" type="text" value="<%= result.name %>" placeholder="Name" required>
-  </div>
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-    <input class="form-control" name="city" type="text" value="<%= result.location.city %>"placeholder="City" required>
-  </div>
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i></span>
-    <input class="form-control" name="country" type="text" value="<%= result.location.country %>" placeholder="Country" required>
-  </div>
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-    <input class="form-control" value="<%= result.pic_path %>" name="pic_path" type="text" placeholder="Profile Image" required>
-  </div>
-  <textarea class="form-control" rows="10" name="about" placeholder="Write some lines about you"><%= result.about %></textarea>
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+      <input class="form-control" type="text" name="email" value="<%= result.email %>" placeholder="Email address" readonly>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+      <input class="form-control" name="password" type="password" placeholder="Password" autofocus required>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+      <input class="form-control" name="name" type="text" value="<%= result.name %>" placeholder="Name" required>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+      <input class="form-control" name="city" type="text" value="<%= result.location.city %>" placeholder="City" required>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i></span>
+      <input class="form-control" name="country" type="text" value="<%= result.location.country %>" placeholder="Country" required>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
+      <input class="form-control" value="<%= result.pic_path %>" name="pic_path" type="text" placeholder="Profile Image" required>
+    </div>
+    <textarea class="form-control" rows="10" name="about" placeholder="Write some lines about you"><%= result.about %></textarea>
     <br><br>
     <% if (typeof(errorMessage) != "undefined") { %>
       <div class="error-message">

@@ -21,8 +21,7 @@ const User = require('../models/user');
   });
 });*/
 
-router.get('/', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
-  console.log('user id: ', req.user._id);
+router.get('/', (req, res, next) => {
   User
     .findOne({
       _id: req.user._id,
@@ -32,7 +31,6 @@ router.get('/', auth.checkLoggedIn('You must be login', '/login'), (req, res, ne
       if (err) {
         next(err);
       } else {
-        // console.log('user: ', user);
         res.render('profile/show', {
           user,
         });
@@ -69,7 +67,7 @@ router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req,
 });
 
 // UPDATE user profile
-router.post('/:id', (req, res) => {
+router.post('/:id', auth.checkLoggedIn('You must be login', '/login'), (req, res) => {
   const idexp = req.params.id;
   const password = req.body.password;
   // Bcrypt to encrypt passwords

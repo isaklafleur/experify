@@ -9,20 +9,19 @@ const router = express.Router();
 const Experience = require('../models/experience');
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.render('index');
 });
 
 // SEARCH
 router.get('/search/:format?', (req, res, next) => {
-  // console.log(req.query);
   if (req.query.long == null || req.query.lat == null) {
     Experience.find({}, (err, result) => {
       res.render('experiences/index', { result });
     });
   } else {
     Experience.where('location')
-    .near({ center: { coordinates: [req.query.long, req.query.lat], type: 'Point' }, maxDistance: 20000 })
+    .near({ center: { coordinates: [req.query.long, req.query.lat], type: 'Point' }, maxDistance: 100000 })
     .find((err, result) => {
       if (err) {
         return next(err);

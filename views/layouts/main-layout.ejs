@@ -8,7 +8,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="http://localhost:3000/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
@@ -33,7 +33,7 @@
           <% if(!currentUser) { %>
             <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Log in</a></li>
             <li><a href="/signup"><i class="fa fa-pencil-square" aria-hidden="true"></i> Sign Up</a></li>
-           <% } else { %>
+            <% } else { %>
               <li><a href="/profile/"><i class="fa fa-user" aria-hidden="true"></i> <%= currentUser.name %></a></li>
               <li><a href="/conversation/"><i class="fa fa-inbox" aria-hidden="true"></i> Inbox</a></li>
 
@@ -44,7 +44,30 @@
       <!--/.nav-collapse -->
     </div>
   </nav>
+          <% if(error && error.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } else if (success && success.length > 0) { %> 
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div> 
+        <% } %>
+<script>
+  $(document).ready(() => {
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, () => {
+      $(".alert-success").slideUp(500);
+    });
+    $(".alert-danger").fadeTo(2000, 500).slideUp(500, () => {
+      $(".alert-danger").slideUp(500);
+    });
+  });
+</script>
+
   <%- body %>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 </body>
+
 </html>

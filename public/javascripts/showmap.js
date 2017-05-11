@@ -1,6 +1,6 @@
 $(document).ready(() => {
   const titleTag = document.getElementById('experienceName');
-  const url = `http://localhost:3000/api/${titleTag.dataset.id}`;
+  const url = `/api/${titleTag.dataset.id}`;
 
   $.ajax({
     url,

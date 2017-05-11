@@ -1,34 +1,37 @@
 <div class="container">
-<h1>Edit your Experience</h1>
-<hr>
-<form class="form-signin" action="/experiences/<%= result._id %>" method="post">
-<div class="input-group margin-bottom-sm">
-  <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
-  <input class="form-control" type="text" name="name" value="<%= result.name %>" placeholder="Title of your Experience" required autofocus>
-</div>
-  <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer" required><%= result.description %></textarea>
+  <h1>Edit your Experience</h1>
+  <hr>
+  <form class="form-signin" action="/experiences/<%= result._id %>" method="post">
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
+      <input class="form-control" type="text" name="name" value="<%= result.name %>" placeholder="Title of your Experience" required
+        autofocus>
+    </div>
+    <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer"
+      required><%= result.description %></textarea>
 
-<div class="input-group margin-bottom-sm">
-  <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-  <input class="form-control" type="text" name="images" value="<%= result.images[0] %>" placeholder="Photo" required>
-</div>
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
+      <input class="form-control" type="text" name="images" value="<%= result.images[0] %>" placeholder="Photo" required>
+    </div>
 
-<div class="input-group margin-bottom-sm">
-  <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-  <input class="form-control" type="text" name="address" value="<%= result.address %>" id="locationName" placeholder="Location" required>
-</div>
-  <input id="lat" type="hidden" class="form-control" name="lat">
-  <input id="long" type="hidden" class="form-control" name="long">
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+      <input class="form-control" type="text" name="address" value="<%= result.address %>" id="searchTextField" placeholder="Location"
+        required>
+    </div>
+    <input id="lat" type="hidden" class="form-control" name="lat">
+    <input id="long" type="hidden" class="form-control" name="long">
 
-<div class="input-group margin-bottom-sm">
-  <span class="input-group-addon"><i class="fa fa-usd fa-fw"></i></span>
-  <input class="form-control" type="text"  name="price" value="<%= result.price %>" placeholder="Price" required>
-</div>
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-usd fa-fw"></i></span>
+      <input class="form-control" type="number" name="price" value="<%= result.price %>" placeholder="Price per person" required>
+    </div>
 
-<div class="input-group margin-bottom-sm">
-  <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
-  <input class="form-control" type="text" name="duration" value="<%= result.duration %>" placeholder="Duration" required>
-</div>
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+      <input class="form-control" type="number" name="duration" value="<%= result.duration %>" placeholder="Duration (hours)" required>
+    </div>
 
     <select class="form-control" name="category" value="<%= result.category %>" required> <!--Supplement an id here instead of using 'name'-->
       <option value="">Category</option> 
@@ -45,14 +48,15 @@
       <option value="Wellness">Wellness</option>
     </select><br>
 
-  <% if (typeof(errorMessage) != "undefined") { %>
-    <div class="error-message">
-      <%= errorMessage %>
-    </div>
-    <% } %>
-    <button class="btn btn-lg btn-success btn-block" type="submit">Update</button><br>
-</form>
+    <% if (typeof(errorMessage) != "undefined") { %>
+      <div class="error-message">
+        <%= errorMessage %>
+      </div>
+      <% } %>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Update</button><br>
+  </form>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="http://localhost:3000/javascripts/newExperience.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async
+    defer></script>
+  <script src="/javascripts/init-getCoordinates-textSearch.js"></script>
+  <script src="/javascripts/newExperience.js"></script>
