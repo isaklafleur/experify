@@ -89,7 +89,7 @@ passport.use(new FbStrategy({
       User.findOneAndUpdate({ email: profile.emails[0].value }, updateuser, (err, result) => {
       });
     } else {
-      console.log('profile', JSON.stringify(profile, null, 2));
+      // console.log('profile', JSON.stringify(profile, null, 2));
       const newuser = new User({
         facebookId: profile.id,
         name: profile.displayName,
