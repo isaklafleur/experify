@@ -15,8 +15,9 @@
       method: 'GET',
       success (chathistory) {
         // console.log(chathistory);
-        for (var i = chathistory.conversation.length - 1; i >= 0; i--) {
-          // console.log(chathistory);
+        // for (var i = chathistory.conversation.length - 1; i >= 0; i--) {
+          for (var i = 0; i < chathistory.conversation.length; i++) {
+          console.log(chathistory);
           $('#messages').append(`<span class="msg"><b>${chathistory.conversation[i].author.name}: </b>${chathistory.conversation[i].body}</span><br />`);
           // ${chathistory.conversation[i].createdAt}
         }
@@ -70,6 +71,6 @@
     });
 
     function displayMessage(data) {
-      $('#messages').append(`<span class="msg"><b>${data.nick}: </b>${data.msg}</span><br />`);
+      $('#messages').prepend(`<span class="msg"><b>${data.nick}: </b>${data.msg}</span><br />`);
     }
   });

@@ -5,7 +5,7 @@
   </h1>
   <hr>
   <img class="img-circle img-responsive profile-img" src="<%= user.pic_path %>"><br>
-  <% if (currentUser.location.city !== undefined ) { %>
+  <% if (user.location.city) { %>
     <h3>
       <%= user.location.city%>,
         <%= user.location.country %>
@@ -29,7 +29,32 @@
         <%= experience.description %><br>
           <img class="img-responsive" src="<%= experience.images[0] %>"><br><br>
           <a class="btn btn-warning" href="/experiences/<%= experience._id %>/edit">Edit</a>
-          <a class="btn btn-danger" href="/experiences/<%= experience._id %>/delete">Delete</a>
+          
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+  Delete
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Do you really want to delete your Experience <%= experience.name %>?</h4>
+      </div>
+      <div class="modal-body">
+        Click Delete again to remove it or Cancel to go back.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-danger" href="/experiences/<%= experience._id %>/delete">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+          
+          
           <hr>
           <% }) %>
             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>

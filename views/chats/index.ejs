@@ -1,11 +1,8 @@
 <div class="container">
   <h1>Inbox</h1>
-  <!--currentuser id: <%= currentUser._id %><br><br>
-currentuser name: <%= currentUser.name %><br><br>
--->
-
-  <!--<pre><%= JSON.stringify(conversations, null, 2) %></pre>-->
-
+  <% if(conversations == null) { %>
+  You do not have any messages yet. Go and <a href="/experiences">Experify></a>!
+  <% } else { %>
   <% conversations.forEach(conversation => { %>
     <div class="row">
       <div class="col-xs-4">
@@ -19,4 +16,5 @@ currentuser name: <%= currentUser.name %><br><br>
       </div>
     </div>
     <% }); %>
+    <% } %>
 </div>

@@ -44,8 +44,30 @@
       <!--/.nav-collapse -->
     </div>
   </nav>
+          <% if(error && error.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } else if (success && success.length > 0) { %> 
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div> 
+        <% } %>
+<script>
+  $(document).ready(() => {
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, () => {
+      $(".alert-success").slideUp(500);
+    });
+    $(".alert-danger").fadeTo(2000, 500).slideUp(500, () => {
+      $(".alert-danger").slideUp(500);
+    });
+  });
+</script>
+
   <%- body %>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 </body>
 
 </html>

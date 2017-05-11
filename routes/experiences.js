@@ -52,6 +52,7 @@ router.post('/', (req, res, next) => {
       if (err) {
         next(err);
       } else {
+        req.flash('success', `${newExperience.name} - was successfully added to Experify! It now available to book for other Experifiers! :-)`);
         return res.redirect('/profile');
       }
     });
@@ -81,7 +82,7 @@ router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req,
 });
 
 // Update experience to database
-router.post('/:id', (req, res) => {
+router.post('/:id', auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
   const idexp = req.params.id;
 
   const newExperience = {
@@ -103,15 +104,21 @@ router.post('/:id', (req, res) => {
     if (err) {
       return res.render('experiences/edit', { errors: newExperience.errors });
     }
+    req.flash('success', `${newExperience.name} - was successfully updated! :-)`);
     return res.redirect(`/experiences/${idexp}`);
   });
 });
 
 // DELETE a experience
-router.get('/:id/delete', (req, res) => {
+router.get('/:id/delete', auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
   const idexp = req.params.id;
   Experience.findOneAndRemove({ _id: idexp }, (err, result) => {
-    res.redirect('/experiences');
+    if (err) throw err;
+    User.findOneAndUpdate({ _id: req.user }, { $pull: { experiences: idexp } }, (err, result) => {
+      if (err) throw err;
+      req.flash('success', `${result.name} - was successfully deleted!`);
+      res.redirect('/profile');
+    });
   });
 });
 

@@ -12,8 +12,6 @@ const methodOverride = require('method-override');
 
 const app = express();
 
-// const Chat = require('./models/chat');
-
 // database connection
 require('./configs/database');
 
@@ -100,8 +98,6 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-// app.use(auth.setCurrentUser);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

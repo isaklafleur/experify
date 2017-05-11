@@ -12,7 +12,7 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/signup', (req, res, next) => {
-  res.render('auth/signup', { message: req.flash('error') });
+  res.render('auth/signup');
 });
 
 router.post('/signup', (req, res, next) => {
@@ -21,15 +21,13 @@ router.post('/signup', (req, res, next) => {
   const password = req.body.password;
 
   if (email === '' || password === '') {
-    req.flash('error', 'Please indicate a email and password');
-    res.render('auth/signup', { message: req.flash('error') });
+    res.render('auth/signup', { error: 'Please indicate a email and password' });
     return;
   }
 
   User.findOne({ email }, 'email', (err, user) => {
     if (user !== null) {
-      req.flash('error', 'The email already exists');
-      res.render('auth/signup', { message: req.flash('error') });
+      res.render('auth/signup', { error: 'This email already exists in our database :-(' });
       return;
     }
     const bcryptSalt = 10;
@@ -40,10 +38,10 @@ router.post('/signup', (req, res, next) => {
 
     newUser.save((err) => {
       if (err) {
-        req.flash('error', 'The email already exists');
-        res.render('auth/signup', { message: req.flash('error') });
+        res.render('auth/signup', { error: `Something went wrong: ${err}` });
       } else {
         passport.authenticate('local')(req, res, () => {
+          req.flash('success', `Welcome to Experify ${newUser.name} :-)`);
           res.redirect('/profile');
         });
       }
@@ -52,7 +50,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.get('/login', (req, res, next) => {
-  res.render('auth/login', { message: req.flash('error') });
+  res.render('auth/login');
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -60,6 +58,7 @@ router.post('/login', passport.authenticate('local', {
   failureFlash: true,
   passReqToCallback: true,
 }), (req, res) => {
+  req.flash('success', `Welcome back to Experify ${req.user.name} :-)`);
   res.redirect('/profile');
 });
 
@@ -69,6 +68,7 @@ router.get('/logout', (req, res) => {
   // becasuse when we calling req.logout() is leaving an empty object inside both properties.
   delete res.locals.currentUser;
   delete req.session.passport;
+  req.flash('success', 'Sad to see you leaving. Come back soon! :-)');
   res.redirect('/');
 });
 
