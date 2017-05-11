@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const FACEBOOK_CLIENT_ID = process.env.FACEBOOK_CLIENT_ID;
 const FACEBOOK_CLIENTSECRET = process.env.FACEBOOK_CLIENTSECRET;
+const FACEBOOK_CALLBACKURL = process.env.FACEBOOK_CALLBACKURL;
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
@@ -69,7 +70,7 @@ passport.use(new LocalStrategy({
 passport.use(new FbStrategy({
   clientID: FACEBOOK_CLIENT_ID,
   clientSecret: FACEBOOK_CLIENTSECRET,
-  callbackURL: '/auth/facebook/callback',
+  callbackURL: FACEBOOK_CALLBACKURL,
   profileFields: ['id', 'displayName', 'photos', 'email', 'gender', 'name'],
 }, (accessToken, refreshToken, profile, done) => {
   // console.log('profile', JSON.stringify(profile, null, 2));
@@ -89,7 +90,7 @@ passport.use(new FbStrategy({
       User.findOneAndUpdate({ email: profile.emails[0].value }, updateuser, (err, result) => {
       });
     } else {
-      console.log('profile', JSON.stringify(profile, null, 2));
+      // console.log('profile', JSON.stringify(profile, null, 2));
       const newuser = new User({
         facebookId: profile.id,
         name: profile.displayName,
