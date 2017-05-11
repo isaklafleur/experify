@@ -23,7 +23,6 @@ passport.deserializeUser((user, cb) => {
       if (err) {
         return cb(err);
       }
-
       cb(null, user);
     });
   } else {
@@ -40,7 +39,6 @@ passport.deserializeUser((user, cb) => {
     }
   }
 });
-
 passport.use(new LocalStrategy({
   passReqToCallback: true,
   usernameField: 'email',
