@@ -5,6 +5,11 @@ const User = require('../models/user');
 const FbStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
+const FACEBOOK_CLIENT_ID = process.env.FACEBOOK_CLIENT_ID;
+const FACEBOOK_CLIENTSECRET = process.env.FACEBOOK_CLIENTSECRET;
+
 passport.serializeUser((user, cb) => {
   cb(null, user);
 });
@@ -61,32 +66,28 @@ passport.use(new LocalStrategy({
   });
 }));
 
-
 passport.use(new FbStrategy({
-  clientID: '1479326355452671',
-  clientSecret: '2231e9c27a40d4b6546a65ec27f80eba',
+  clientID: FACEBOOK_CLIENT_ID,
+  clientSecret: FACEBOOK_CLIENTSECRET,
   callbackURL: '/auth/facebook/callback',
-  profileFields: ['id', 'displayName', 'photos', 'email', 'gender', 'name', 'about', 'hometown'],
+  profileFields: ['id', 'displayName', 'photos', 'email', 'gender', 'name'],
 }, (accessToken, refreshToken, profile, done) => {
-  console.log('profile', JSON.stringify(profile, null, 2));
+  // console.log('profile', JSON.stringify(profile, null, 2));
   User.findOne({
     email: profile.emails[0].value,
   }, (err, user) => {
     if (err) {
       console.log(err); // handle errors!
     }
-    console.log('user: ', user);
+    // console.log('user: ', user);
     if (!err && user !== null) {
-      console.log("hello!");
       const updateuser = {
         facebookId: profile.id,
         name: profile.displayName,
         pic_path: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
       };
       User.findOneAndUpdate({ email: profile.emails[0].value }, updateuser, (err, result) => {
-        // console.log("result ", result);
       });
-      // done(null, user);
     } else {
       console.log('profile', JSON.stringify(profile, null, 2));
       const newuser = new User({
@@ -95,7 +96,6 @@ passport.use(new FbStrategy({
         pic_path: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
         email: profile.emails[0].value,
       });
-      // console.log('user', user);
       newuser.save((err) => {
         if (err) {
           console.log(err); // handle errors!
