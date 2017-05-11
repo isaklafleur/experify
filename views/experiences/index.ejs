@@ -1,37 +1,35 @@
 <div class="container">
   <h1>Experiences</h1>
   <hr>
+  <div class="form-inline">
+    <input type="text" placeholder="Filter by Destination" class="form-control" name="searchTextField" id="searchTextField">
+    <button id="goMap" class="btn btn-success"><a href="/search" style="text-decoration:none; color:white;"><i class="fa fa-search" aria-hidden="true"></i> Search</a></button>
+  </div>
+  <input id="lat" type="hidden" class="form-control" placeholder="Full address" name="lat">
+  <input id="long" type="hidden" class="form-control" placeholder="Full address" name="long">
 
-  <form class="form-inline">
-    <div class="form-group">
-      <input type="text" placeholder="Filter by Destination" class="form-control" name="searchTextField" id="searchTextField">
-    </div>
-    <button id="goMap" class="btn btn-success"><a href="/search" style="text-decoration:none; color:white;"><i class="fa fa-search" aria-hidden="true"></i> Search</a></button><br><br>
-    <input id="lat" type="hidden" class="form-control" placeholder="Full address" name="lat">
-    <input id="long" type="hidden" class="form-control" placeholder="Full address" name="long">
-
-    <div class="row">
-      <% result.forEach(experience => { %>
-        <a href="/experiences/<%= experience._id %>/">
-          <div class="col-sm-4 col-md-3">
-            <div class="thumbnail">
-              <img class="front-image-thumbnail" src="<%= experience.images[0] %>" alt="<%= experience.name %>">
-              <div class="caption">
-                <h3>
-                  <%= experience.name %>
-                </h3>
-        </a>
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span><br>
-        <a href="/experiences/<%= experience._id %>/" class="btn btn-sm btn-success">$<%= experience.price %></a>
-        </div>
-        </div>
-        </div>
-        <% }); %>
-    </div>
+  <div class="row">
+    <% result.forEach(experience => { %>
+      <a href="/experiences/<%= experience._id %>/">
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img class="front-image-thumbnail" src="<%= experience.images[0] %>" alt="<%= experience.name %>">
+            <div class="caption">
+              <h3>
+                <%= experience.name %>
+              </h3>
+      </a>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span><br>
+      <a href="/experiences/<%= experience._id %>/" class="btn btn-sm btn-success">$<%= experience.price %></a>
+      </div>
+      </div>
+      </div>
+      <% }); %>
+  </div>
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async
   defer></script>

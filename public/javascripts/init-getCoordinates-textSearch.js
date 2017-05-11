@@ -4,7 +4,7 @@ function init() {
 }
 
 $('#searchTextField').change(() => {
-  setTimeout(getCoordinates, 100);
+  setTimeout(getCoordinates, 1000);
 });
 
 function getCoordinates() {

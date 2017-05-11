@@ -7,3 +7,4 @@ $('#goMap').click(function () {
 $(document).ready(() => {
   init();
 });
+
