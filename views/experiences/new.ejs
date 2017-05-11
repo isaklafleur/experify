@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Add new Experience</h1>
   <hr>
-  <form class="form-signin" action="/experiences" method="post">
+  <form class="form-signin" action="/experiences" method="post" enctype="multipart/form-data">
     <div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
       <input class="form-control" type="text" name="name" placeholder="Title of your Experience" required autofocus>
@@ -9,11 +9,10 @@
     <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer"
       required></textarea>
 
-    <div class="input-group margin-bottom-sm">
+<div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-      <input class="form-control" type="text" name="images" placeholder="Photo" required>
+      <input class="form-control" name="images" type="file" required>
     </div>
-
     <div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
       <input class="form-control" type="text" name="address" id="searchTextField" placeholder="Location" required>

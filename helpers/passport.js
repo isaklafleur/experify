@@ -23,7 +23,6 @@ passport.deserializeUser((user, cb) => {
       if (err) {
         return cb(err);
       }
-
       cb(null, user);
     });
   } else {
@@ -40,7 +39,6 @@ passport.deserializeUser((user, cb) => {
     }
   }
 });
-
 passport.use(new LocalStrategy({
   passReqToCallback: true,
   usernameField: 'email',
@@ -85,7 +83,7 @@ passport.use(new FbStrategy({
       const updateuser = {
         facebookId: profile.id,
         name: profile.displayName,
-        pic_path: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
+        avatar: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
       };
       User.findOneAndUpdate({ email: profile.emails[0].value }, updateuser, (err, result) => {
       });
@@ -94,7 +92,7 @@ passport.use(new FbStrategy({
       const newuser = new User({
         facebookId: profile.id,
         name: profile.displayName,
-        pic_path: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
+        avatar: profile.photos[0].value ? profile.photos[0].value : '/images/userProfileIcon.jpg',
         email: profile.emails[0].value,
       });
       newuser.save((err) => {

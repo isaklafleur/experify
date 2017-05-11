@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Edit your Experience</h1>
   <hr>
-  <form class="form-signin" action="/experiences/<%= result._id %>" method="post">
+  <form class="form-signin" action="/experiences/<%= result._id %>" method="post" enctype="multipart/form-data">
     <div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
       <input class="form-control" type="text" name="name" value="<%= result.name %>" placeholder="Title of your Experience" required
@@ -10,9 +10,9 @@
     <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer"
       required><%= result.description %></textarea>
 
-    <div class="input-group margin-bottom-sm">
+<div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-      <input class="form-control" type="text" name="images" value="<%= result.images[0] %>" placeholder="Photo" required>
+      <input class="form-control" name="images" value="<%= result.images[0] %>" type="file" required>
     </div>
 
     <div class="input-group margin-bottom-sm">

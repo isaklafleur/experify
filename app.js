@@ -9,6 +9,7 @@ const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
+const multer = require('multer');
 const passport = require('./helpers/passport');
 
 const app = express();

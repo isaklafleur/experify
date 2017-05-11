@@ -3,11 +3,19 @@
 // =================
 
 const express = require('express');
+const multer = require('multer');
 
 const router = express.Router();
 const auth = require('../helpers/auth.js');
 const Experience = require('../models/experience');
 const User = require('../models/user');
+
+// upload image
+const upload = multer({
+  dest: './public/uploads/',
+  fileSize: 4000000,
+  files: 1,
+});
 
 // INDEX all experiences
 router.get('/', (req, res, next) => {
@@ -25,11 +33,11 @@ router.get('/new', auth.checkLoggedIn('You must be login', '/login'), (req, res)
 });
 
 // Save experience to database
-router.post('/', (req, res, next) => {
+router.post('/', upload.single('images'), (req, res, next) => {
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
-    images: req.body.images,
+    images: `uploads/${req.file.filename}`,
     description: req.body.description,
     duration: req.body.duration,
     availability: req.body.availability,
@@ -82,13 +90,13 @@ router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req,
 });
 
 // Update experience to database
-router.post('/:id', auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
+router.post('/:id', upload.single('images'), auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
   const idexp = req.params.id;
 
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
-    images: req.body.images,
+    images: `uploads/${req.file.filename}`,
     description: req.body.description,
     duration: req.body.duration,
     availability: req.body.availability,
