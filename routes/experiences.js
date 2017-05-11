@@ -1,10 +1,13 @@
+// =================
+// EXPERIENCE ROUTES
+// =================
+
 const express = require('express');
 
 const router = express.Router();
-
 const auth = require('../helpers/auth.js');
-
 const Experience = require('../models/experience');
+const User = require('../models/user');
 
 // INDEX all experiences
 router.get('/', (req, res, next) => {
@@ -17,12 +20,12 @@ router.get('/', (req, res, next) => {
 });
 
 // Display NEW form to create new experience
-router.get('/new', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.get('/new', auth.checkLoggedIn('You must be login', '/login'), (req, res) => {
   res.render('experiences/new');
 });
 
 // Save experience to database
-router.post('/', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.post('/', (req, res, next) => {
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
@@ -30,34 +33,48 @@ router.post('/', auth.checkLoggedIn('/login'), (req, res, next) => {
     description: req.body.description,
     duration: req.body.duration,
     availability: req.body.availability,
-    user: req.user._id,
+    user: req.session.passport.user._id,
+    address: req.body.address,
+    category: req.body.category,
     location: {
-      city: req.body.city,
-      street: req.body.street,
+      type: 'Point',
+      coordinates: [req.body.long, req.body.lat],
     },
-    categories: req.body.categories,
   };
 
   const exp = new Experience(newExperience);
 
   exp.save((err) => {
     if (err) {
-      return res.render(res.render('/new', { errors: exp.errors }));
+      return res.render('/new', { errors: exp.errors });
     }
-    return res.redirect('/experiences');
+    User.findByIdAndUpdate({ _id: req.session.passport.user._id }, { $push: { experiences: exp._id } }, (err) => {
+      if (err) {
+        next(err);
+      } else {
+        req.flash('success', `${newExperience.name} - was successfully added to Experify! It now available to book for other Experifiers! :-)`);
+        return res.redirect('/profile');
+      }
+    });
   });
 });
 
 // SHOW one experience
 router.get('/:id', (req, res, next) => {
   const idexp = req.params.id;
-  Experience.findOne({ _id: idexp }, (err, result) => {
-    res.render('experiences/show', { result });
+  Experience.findOne({ _id: idexp })
+  .populate('user')
+  .exec((err, result) => {
+    if (err) {
+      next(err);
+    } else {
+      res.render('experiences/show', { result });
+    }
   });
 });
 
 // Display EDIT form
-router.get('/:id/edit', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
   const idexp = req.params.id;
   Experience.findOne({ _id: idexp }, (err, result) => {
     res.render('experiences/edit', { result });
@@ -65,7 +82,7 @@ router.get('/:id/edit', auth.checkLoggedIn('/login'), (req, res, next) => {
 });
 
 // Update experience to database
-router.post('/:id', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.post('/:id', auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
   const idexp = req.params.id;
 
   const newExperience = {
@@ -75,84 +92,34 @@ router.post('/:id', auth.checkLoggedIn('/login'), (req, res, next) => {
     description: req.body.description,
     duration: req.body.duration,
     availability: req.body.availability,
-    user: req.user._id,
+    address: req.body.address,
     location: {
-      city: req.body.city,
-      street: req.body.street,
+      type: 'Point',
+      coordinates: [req.body.long, req.body.lat],
     },
-    categories: req.body.categories,
+    category: req.body.category,
   };
 
   Experience.findOneAndUpdate({ _id: idexp }, newExperience, (err, result) => {
     if (err) {
-      return res.render(`/${idexp}/edit`, { errors: newExperience.errors });
+      return res.render('experiences/edit', { errors: newExperience.errors });
     }
+    req.flash('success', `${newExperience.name} - was successfully updated! :-)`);
     return res.redirect(`/experiences/${idexp}`);
   });
 });
 
 // DELETE a experience
-router.get('/:id/delete', auth.checkLoggedIn('/login'), (req, res, next) => {
+router.get('/:id/delete', auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
   const idexp = req.params.id;
   Experience.findOneAndRemove({ _id: idexp }, (err, result) => {
-    res.redirect('/experiences');
+    if (err) throw err;
+    User.findOneAndUpdate({ _id: req.user }, { $pull: { experiences: idexp } }, (err, result) => {
+      if (err) throw err;
+      req.flash('success', `${result.name} - was successfully deleted!`);
+      res.redirect('/profile');
+    });
   });
 });
-
-/*
-app.get('/random', (req, res, next) => {
-
-  client.getRandomJoke()
-    .then((response) => {
-      console.log(response);
-      res.render('joke-by-category', {joke: response});
-    }).catch((err) => {
-      // handle error
-    });
-});
-
-app.get('/categories', (req, res, next) => {
-  if (req.query.cat === undefined){
-    client.getJokeCategories()
-    .then((response)=>  {
-      res.render('categories', {categories: response})
-    })
-    .catch((err)=> {
-      // handle error
-    });
-
-  } else {
-    client.getRandomJoke(req.query.cat)
-    .then((response) => {
-      console.log(response);
-      res.render('joke-by-category', {joke: response})
-    }).catch((err) => {
-      // handle error
-    });
-  }
-});
-
-
-app.get('/search', (req, res, next) => {
-  res.render('search');
-});
-
-
-app.post('/search', (req, res, next)=> {
-
-  client.search(req.body.name)
-
-  .then(function (response) {
-      console.log(response);
-    res.render('foundjokes', {jokes: response.items});
-  }).catch(function (err) {
-    // handle error
-  });
-});
-
-app.listen(3000, () => {
-  console.log('My first app listening on port 3000!');
-});
-*/
 
 module.exports = router;

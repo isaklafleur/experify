@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
 
-const UserSchema = mongoose.Schema({
-  name: String,
-  username: String,
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema({
+  email: String,
   password: String,
-  profileImg: String,
+  name: String,
+  pic_path: String,
+  pic_name: String,
   about: String,
-  experiences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Experience' }],
+  facebookId: Number,
+  location: {
+    city: { type: String },
+    country: { type: String },
+  },
+  experiences: [{ type: Schema.Types.ObjectId, ref: 'Experience' }],
 },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },

@@ -1,28 +1,66 @@
-<form class="form-signin" action="/experiences" method="post">
-<h2 class="form-signin-heading">Please complete the following form to sign up to our awesome community </h2>
-  <label class="sr-only" for="name">Name of Experience: </label>
-  <input class="form-control" type="text" name="name" placeholder="Select name" required><br><br>
-  <label class="sr-only" for="description">Description: </label>
-  <input class="form-control" type="text" name="description" placeholder="Write a description"><br><br>
-  <label class="sr-only" for="images">Image: </label>
-  <input class="form-control" type="text" name="images" placeholder="Select a image"><br><br>
-  <label class="sr-only" for="city">City: </label>
-  <input class="form-control" type="text" name="city" placeholder="city"><br><br>
-  <label class="sr-only" for="street">Street: </label>
-  <input class="form-control" type="text" name="street" placeholder="street"><br><br>
-  <label class="sr-only" for="city">Categories</label>
-  <input class="form-control" type="text" name="categories" placeholder="Select your categories"><br><br>
-  <label class="sr-only" for="price">Price</label>
-  <input class="form-control" type="number" name="price" placeholder="price of experience"><br><br>
-  <label class="sr-only" for="duration">Duration</label>
-  <input class="form-control" type="number" name="duration" placeholder="duration of experience"><br><br>
-  <label class="sr-only" for="availability">Availability</label>
-  <input class="form-control" type="datetime-local" name="availability" placeholder="availability"><br><br>
+<div class="container">
+  <h1>Add new Experience</h1>
+  <hr>
+  <form class="form-signin" action="/experiences" method="post">
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
+      <input class="form-control" type="text" name="name" placeholder="Title of your Experience" required autofocus>
+    </div>
+    <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer"
+      required></textarea>
+
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
+      <input class="form-control" type="text" name="images" placeholder="Photo" required>
+    </div>
+
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+      <input class="form-control" type="text" name="address" id="searchTextField" placeholder="Location" required>
+    </div>
+    <input id="lat" type="hidden" class="form-control" name="lat">
+    <input id="long" type="hidden" class="form-control" name="long">
+
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-usd fa-fw"></i></span>
+      <input class="form-control" type="number" name="price" placeholder="Price per person" required>
+    </div>
+
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+      <input class="form-control" type="number" name="duration" placeholder="Duration (hours)" required>
+    </div>
+
+    <select class="form-control" name="category" required> <!--Supplement an id here instead of using 'name'-->
+      <option value="">Category</option> 
+      <option value="Arts">Arts</option> 
+      <option value="Entertainment" >Entertainment</option>
+      <option value="Fashion">Fashion</option>
+      <option value="Food & Drink">Food & Drink</option>
+      <option value="Lifestyle">Lifestyle</option>
+      <option value="Music">Music</option>
+      <option value="Nature">Nature</option>
+      <option value="Social impact">Social impact</option>
+      <option value="Sports">Sports</option>
+      <option value="Technology">Technology</option>
+      <option value="Wellness">Wellness</option>
+    </select><br>
+
+    <% if (typeof(errorMessage) != "undefined") { %>
+      <div class="error-message">
+        <%= errorMessage %>
+      </div>
+      <% } %>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Update</button><br>
+  </form>
+
   <% if (typeof(errorMessage) != "undefined") { %>
     <div class="error-message">
       <%= errorMessage %>
     </div>
     <% } %>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Create an Experience</button><br>
-      <a class="btn btn-md btn-primary btn-block" href="/experiences">Go Back</a>
-</form>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async
+  defer></script>
+<script src="/javascripts/init-getCoordinates-textSearch.js"></script>
+<script src="/javascripts/searchexperience.js"></script>

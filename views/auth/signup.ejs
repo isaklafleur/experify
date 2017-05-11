@@ -1,23 +1,20 @@
 <form class="form-signin" action="/signup" method="POST">
   <h2 class="form-signin-heading">Please sign up</h2>
-  <label for="inputEmail" class="sr-only">Email address</label>
-  <input type="email" id="inputEmail" class="form-control" name="username" placeholder="Email address" required autofocus>
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-  <label for="inputName" class="sr-only">Name</label>
-  <input type="text" id="inputName" name="name" class="form-control" placeholder="Name">
-  <div class="checkbox">
-    <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
+  <a href="/auth/facebook">Sign up with help of your Facebook account</a><br><br>
+  <div class="input-group margin-bottom-sm">
+    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+    <input class="form-control" type="email" name="email" placeholder="Email address" required autofocus>
   </div>
-      <br>
-        <% if (typeof(errorMessage) != "undefined") { %>
-    <div class="error-message">
-      <%= errorMessage %>
-    </div>
-    <% } %>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+    <input class="form-control" name="password" type="password" placeholder="Password" required>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+    <input class="form-control" name="name" type="text" placeholder="Name" required>
+  </div><br>
+  <br>
+      <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
       <br>
       <p class="account-message">
         Do you already have an account?
