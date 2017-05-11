@@ -2,7 +2,7 @@
   <h1>Edit Profile</h1>
   <hr>
 
-  <form class="form-signin" action="/profile/<%= result._id %>" method="post">
+  <form class="form-signin" action="/profile/<%= result._id %>" method="post" enctype="multipart/form-data">
     <div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
       <input class="form-control" type="text" name="email" value="<%= result.email %>" placeholder="Email address" readonly>
@@ -25,15 +25,12 @@
     </div>
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-      <input class="form-control" value="<%= result.pic_path %>" name="pic_path" type="text" placeholder="Profile Image" required>
+      <input class="form-control" value="<%= result.avatar %>" name="avatar" type="file" required>
     </div>
     <textarea class="form-control" rows="10" name="about" placeholder="Write some lines about you"><%= result.about %></textarea>
+    
     <br><br>
-    <% if (typeof(errorMessage) != "undefined") { %>
-      <div class="error-message">
-        <%= errorMessage %>
-      </div>
-      <% } %>
+
         <button class="btn btn-lg btn-success btn-block" type="submit">Update Your Profile</button>
   </form>
 </div>

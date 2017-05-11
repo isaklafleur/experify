@@ -5,21 +5,18 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const auth = require('../helpers/auth');
+const multer = require('multer');
+
+// upload image
+const upload = multer({
+  dest: './public/uploads/',
+  fileSize: 4000000,
+  files: 1,
+});
 
 const router = express.Router();
 
 const User = require('../models/user');
-
-/* router.get('/', ensureLogin.ensureLoggedIn(), (req, res) => {
-  // console.log('req.user', req.user);
-  // console.log('req.session', req.session.passport.user._id);
-  // console.log(req.session);
-  User.findById(req.session.passport.user._id, (err, user) => {
-    res.render('profile/show', {
-      user,
-    });
-  });
-});*/
 
 router.get('/', (req, res, next) => {
   User
@@ -67,10 +64,9 @@ router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req,
 });
 
 // UPDATE user profile
-router.post('/:id', auth.checkLoggedIn('You must be login', '/login'), (req, res) => {
+router.post('/:id', upload.single('avatar'), auth.checkLoggedIn('You must be login', '/login'), (req, res) => {
   const idexp = req.params.id;
   const password = req.body.password;
-  // Bcrypt to encrypt passwords
   const bcryptSalt = 10;
   const salt = bcrypt.genSaltSync(bcryptSalt);
   const hashPass = bcrypt.hashSync(password, salt);
@@ -79,7 +75,7 @@ router.post('/:id', auth.checkLoggedIn('You must be login', '/login'), (req, res
     name: req.body.name,
     email: req.body.email,
     password: hashPass,
-    pic_path: req.body.pic_path,
+    avatar: `uploads/${req.file.filename}`,
     about: req.body.about,
     location: {
       city: req.body.city,
