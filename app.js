@@ -9,6 +9,7 @@ const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
+const passport = require('./helpers/passport');
 
 const app = express();
 
@@ -71,10 +72,6 @@ const experienceRoutes = require('./routes/experiences');
 const apiRoutes = require('./routes/api');
 const ChatRoutes = require('./routes/chat');
 
-// Require Helper files
-const auth = require('./helpers/auth');
-const passport = require('./helpers/passport');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -92,10 +89,10 @@ app.use(session({
   secret: 'our-passport-local-strategy-app',
   resave: true,
   saveUninitialized: true,
+  cookie: { maxAge: 60000 },
 }));
 
 app.use(flash());
-
 app.use(passport.initialize());
 app.use(passport.session());
 
