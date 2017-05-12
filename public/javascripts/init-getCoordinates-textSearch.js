@@ -8,7 +8,7 @@ $('#searchTextField').change(() => {
 });
 
 function getCoordinates() {
-  console.log('hello!');
+  // console.log('hello!');
   const service = new google.maps.places.PlacesService(document.createElement('div'));
 
   const request = {

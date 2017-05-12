@@ -73,7 +73,7 @@ router.get('/', auth.checkLoggedIn('/login'), (req, res, next) => {
   Conversation.find({ participants: req.user._id })
     .exec((err, conversations) => {
       if (conversations == []) {
-        console.log('conversations object is empty for user');
+        // console.log('conversations object is empty for user');
         res.render('chats/index', { conversations });
       } else if (err) {
         console.log('error!');
@@ -82,7 +82,7 @@ router.get('/', auth.checkLoggedIn('/login'), (req, res, next) => {
       } else {
       const fullConversations = [];
       conversations.forEach((conversation) => {
-        console.log('conversations has messages');
+        // console.log('conversations has messages');
         Message.find({ conversationId: conversation._id })
           .populate('conversationId')
           .sort('-createdAt')

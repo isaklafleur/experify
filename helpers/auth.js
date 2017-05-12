@@ -2,7 +2,7 @@ module.exports = {
   setCurrentUser(req, res, next) {
     if (req.session.passport) {
       res.locals.currentUser = req.passport;
-      console.log(res.locals.currentUser);
+      // console.log(res.locals.currentUser);
       res.locals.isUserLoggedIn = true;
     } else {
       res.locals.isUserLoggedIn = false;

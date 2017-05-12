@@ -11,7 +11,10 @@
 
 <div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-      <input class="form-control" name="images" type="file" required>
+<label class="btn btn-success btn-file" style="margin: 2px;">
+  Browse 
+<input class="form-control" name="images" type="file" style="display: none;">
+</label>
     </div>
     <div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
@@ -50,7 +53,7 @@
         <%= errorMessage %>
       </div>
       <% } %>
-        <button class="btn btn-lg btn-success btn-block" type="submit">Update</button><br>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Create</button><br>
   </form>
 
   <% if (typeof(errorMessage) != "undefined") { %>

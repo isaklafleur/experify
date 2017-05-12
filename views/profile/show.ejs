@@ -30,16 +30,16 @@
         </h4>
         <strong>Description: </strong>
         <%= experience.description %><br>
-          <img class="img-responsive" src="/<%= experience.images[0] %>"><br><br>
+          <img class="img-responsive" src="/<%= experience.images %>"><br><br>
           <a class="btn btn-warning" href="/experiences/<%= experience._id %>/edit">Edit</a>
           
           <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%= experience._id %>">
   Delete
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="<%= experience._id %>">
+<div class="modal fade" id="<%= experience._id %>" tabindex="-1" role="dialog" aria-labelledby="<%= experience._id %>">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
