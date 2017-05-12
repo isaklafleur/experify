@@ -39,7 +39,7 @@ router.post('/', upload.single('images'), (req, res, next) => {
   /*const str = req.body.imagestemp;
   const afterslash = str.substr(str.indexOf('/') + 1);*/
   if (req.file === undefined && req.body.imagestemp === undefined) {
-    console.log('test');
+    // console.log('test');
     req.file = {
       fieldname: 'images',
       originalname: 'sddsdsd',
