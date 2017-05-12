@@ -7,10 +7,9 @@
   </div>
   <input id="lat" type="hidden" class="form-control" placeholder="Full address" name="lat">
   <input id="long" type="hidden" class="form-control" placeholder="Full address" name="long">
-
-  <div class="row">
+  <div class="row" id="expdiv">
     <% result.forEach(experience => { %>
-      <a href="/experiences/<%= experience._id %>/">
+    <a href="/experiences/<%= experience._id %>/">
         <div class="col-sm-4 col-md-3">
           <div class="thumbnail">
             <img class="front-image-thumbnail" src="<%= experience.images[0] %>" alt="<%= experience.name %>">
