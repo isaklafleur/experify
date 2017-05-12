@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const ExperienceSchema = new Schema({
   name: String,
   price: Number,
-  images: [{ type: String }],
+  images: String,
+  imagesName: String,
   description: String,
   duration: Number,
   availability: [{ type: Date }],

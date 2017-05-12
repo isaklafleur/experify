@@ -18,7 +18,8 @@ const router = express.Router();
 
 const User = require('../models/user');
 
-router.get('/', (req, res, next) => {
+// Display SHOW page
+router.get('/', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
   User
     .findOne({
       _id: req.user._id,
@@ -70,6 +71,22 @@ router.post('/:id', upload.single('avatar'), auth.checkLoggedIn('You must be log
   const bcryptSalt = 10;
   const salt = bcrypt.genSaltSync(bcryptSalt);
   const hashPass = bcrypt.hashSync(password, salt);
+
+  const str = req.body.avatartemp;
+  const afterslash = str.substr(str.indexOf('/') + 1);
+  if (req.file === undefined) {
+    // console.log('test');
+    req.file = {
+      fieldname: 'images',
+      originalname: 'sddsdsd',
+      encoding: '7bit',
+      mimetype: 'image/jpeg',
+      destination: './public/uploads/',
+      filename: afterslash,
+      path: `public/${req.body.avatartemp}`,
+    };
+    // console.log(req.file);
+  }
 
   const updateUser = {
     name: req.body.name,
