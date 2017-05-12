@@ -1,5 +1,5 @@
 <h1 align=center>
-<img alt="Experify" src="https://github.com/isaklafleur/experify/blob/isak-dev/public/images/experify.pngg">
+<img alt="Experify" src="https://github.com/isaklafleur/experify/blob/isak-dev/public/images/experify.png">
   <br>
   Experify - Spend Less, Enjoy More</h1>
 
