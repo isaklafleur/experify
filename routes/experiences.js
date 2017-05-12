@@ -23,7 +23,9 @@ router.get('/', (req, res, next) => {
     if (err) {
       next(err);
     }
-    res.render('experiences/index', { result });
+    res.render('experiences/index', {
+      result,
+    });
   });
 });
 
@@ -34,6 +36,22 @@ router.get('/new', auth.checkLoggedIn('You must be login', '/login'), (req, res)
 
 // Save experience to database
 router.post('/', upload.single('images'), (req, res, next) => {
+  /*const str = req.body.imagestemp;
+  const afterslash = str.substr(str.indexOf('/') + 1);*/
+  if (req.file === undefined && req.body.imagestemp === undefined) {
+    // console.log('test');
+    req.file = {
+      fieldname: 'images',
+      originalname: 'sddsdsd',
+      encoding: '7bit',
+      mimetype: 'image/jpeg',
+      destination: './public/uploads/',
+      filename: 'no_image_thumb.png',
+      path: `public/${req.body.imagestemp}`,
+    };
+    console.log('req.file: ', req.file);
+  }
+
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
@@ -54,9 +72,17 @@ router.post('/', upload.single('images'), (req, res, next) => {
 
   exp.save((err) => {
     if (err) {
-      return res.render('/new', { errors: exp.errors });
+      return res.render('/new', {
+        errors: exp.errors,
+      });
     }
-    User.findByIdAndUpdate({ _id: req.session.passport.user._id }, { $push: { experiences: exp._id } }, (err) => {
+    User.findByIdAndUpdate({
+      _id: req.session.passport.user._id,
+    }, {
+      $push: {
+        experiences: exp._id,
+      },
+    }, (err) => {
       if (err) {
         next(err);
       } else {
@@ -70,33 +96,60 @@ router.post('/', upload.single('images'), (req, res, next) => {
 // SHOW one experience
 router.get('/:id', (req, res, next) => {
   const idexp = req.params.id;
-  Experience.findOne({ _id: idexp })
-  .populate('user')
-  .exec((err, result) => {
-    if (err) {
-      next(err);
-    } else {
-      res.render('experiences/show', { result });
-    }
-  });
+  Experience.findOne({
+      _id: idexp,
+    })
+    .populate('user')
+    .exec((err, result) => {
+      if (err) {
+        next(err);
+      } else {
+        res.render('experiences/show', {
+          result,
+        });
+      }
+    });
 });
 
 // Display EDIT form
 router.get('/:id/edit', auth.checkLoggedIn('You must be login', '/login'), (req, res, next) => {
   const idexp = req.params.id;
-  Experience.findOne({ _id: idexp }, (err, result) => {
-    res.render('experiences/edit', { result });
+  Experience.findOne({
+    _id: idexp,
+  }, (err, result) => {
+    const categories = ['Arts', 'Entertainment', 'Fashion', 'Food & Drink', 'Lifestyle', 'Music', 'Nature', 'Social impact', 'Sports', 'Technology', 'Wellness'];
+    res.render('experiences/edit', {
+      result,
+      categories,
+    });
   });
 });
 
 // Update experience to database
 router.post('/:id', upload.single('images'), auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
   const idexp = req.params.id;
-
+  // console.log('req.file', req.file);
+  // console.log('req.body.imagestemp', req.body.imagestemp);
+  const str = req.body.imagestemp;
+  const afterslash = str.substr(str.indexOf('/') + 1);
+  if (req.file === undefined) {
+    // console.log('test');
+    req.file = {
+      fieldname: 'images',
+      originalname: req.body.imagesName,
+      encoding: '7bit',
+      mimetype: 'image/jpeg',
+      destination: './public/uploads/',
+      filename: afterslash,
+      path: `public/${req.body.imagestemp}`,
+    };
+    // console.log(req.file);
+  }
   const newExperience = {
     name: req.body.name,
     price: req.body.price,
     images: `uploads/${req.file.filename}`,
+    imagesName: req.file.originalname,
     description: req.body.description,
     duration: req.body.duration,
     availability: req.body.availability,
@@ -108,9 +161,13 @@ router.post('/:id', upload.single('images'), auth.checkLoggedIn('You need to log
     category: req.body.category,
   };
 
-  Experience.findOneAndUpdate({ _id: idexp }, newExperience, (err, result) => {
+  Experience.findOneAndUpdate({
+    _id: idexp,
+  }, newExperience, (err, result) => {
     if (err) {
-      return res.render('experiences/edit', { errors: newExperience.errors });
+      return res.render('experiences/edit', {
+        errors: newExperience.errors,
+      });
     }
     req.flash('success', `${newExperience.name} - was successfully updated! :-)`);
     return res.redirect(`/experiences/${idexp}`);
@@ -120,11 +177,19 @@ router.post('/:id', upload.single('images'), auth.checkLoggedIn('You need to log
 // DELETE a experience
 router.get('/:id/delete', auth.checkLoggedIn('You need to login to access this page', '/login'), (req, res) => {
   const idexp = req.params.id;
-  Experience.findOneAndRemove({ _id: idexp }, (err, result) => {
+  Experience.findOneAndRemove({
+    _id: idexp,
+  }, (err, result) => {
     if (err) throw err;
-    User.findOneAndUpdate({ _id: req.user }, { $pull: { experiences: idexp } }, (err, result) => {
+    User.findOneAndUpdate({
+      _id: req.user,
+    }, {
+      $pull: {
+        experiences: idexp,
+      },
+    }, (err, result) => {
       if (err) throw err;
-      req.flash('success', `${result.name} - was successfully deleted!`);
+      req.flash('success', 'The Experience was successfully deleted!');
       res.redirect('/profile');
     });
   });

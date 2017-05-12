@@ -8,8 +8,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
-const methodOverride = require('method-override');
-const multer = require('multer');
 const passport = require('./helpers/passport');
 
 const app = express();
@@ -74,9 +72,9 @@ const apiRoutes = require('./routes/api');
 const ChatRoutes = require('./routes/chat');
 
 // view engine setup
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(methodOverride('_method'));
 
 // Layouts
 app.use(expressLayouts);
@@ -101,7 +99,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // adding our own middleware so all pages can access currentUser
 app.use((req, res, next) => {

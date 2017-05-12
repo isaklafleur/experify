@@ -23,14 +23,18 @@
       <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i></span>
       <input class="form-control" name="country" type="text" value="<%= result.location.country %>" placeholder="Country" required>
     </div>
-    <div class="input-group">
+
+    <div class="input-group margin-bottom-sm">
       <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-      <input class="form-control" value="<%= result.avatar %>" name="avatar" type="file" required>
+<label class="btn btn-success btn-file" style="margin: 2px;">
+  Browse 
+<input class="form-control" name="avatar" value="<%= result.avatar %>" type="file" style="display: none;">
+</label>
     </div>
     <textarea class="form-control" rows="10" name="about" placeholder="Write some lines about you"><%= result.about %></textarea>
     
     <br><br>
-
+    <input class="form-control" name="avatartemp" type="hidden" value="<%= result.avatar %>" type="text">
         <button class="btn btn-lg btn-success btn-block" type="submit">Update Your Profile</button>
   </form>
 </div>
