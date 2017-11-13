@@ -1,20 +1,22 @@
 <div class="container">
   <h1>Inbox</h1>
   <% if(conversations == null) { %>
-  You do not have any messages yet. Go and <a href="/experiences">Experify></a>!
-  <% } else { %>
-  <% conversations.forEach(conversation => { %>
-    <div class="row">
-      <div class="col-xs-4">
-        <%= conversation[0].author.name %><br>
-          <%= conversation[0].createdAt %>
-      </div>
-      <div class="col-xs-4">
-        <a href="<%=conversation[0].conversationId.experience %>/<%= conversation[0].conversationId._id %>/">
-          <%= conversation[0].body %>
-        </a>
-      </div>
-    </div>
-    <% }); %>
-    <% } %>
+    You do not have any messages yet. Go and
+    <a href="/experiences">Experify></a>!
+    <% } else { %>
+      <% conversations.forEach(conversation => { %>
+        <div class="row">
+          <div class="col-xs-4">
+            <%= conversation[0].author.name %>
+              <br>
+              <%= conversation[0].createdAt %>
+          </div>
+          <div class="col-xs-4">
+            <a href="<%=conversation[0].conversationId.experience %>/<%= conversation[0].conversationId._id %>/">
+              <%= conversation[0].body %>
+            </a>
+          </div>
+        </div>
+        <% }); %>
+          <% } %>
 </div>

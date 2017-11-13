@@ -13,7 +13,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
-    req.flash('error', message);
+    req.flash("error", message);
     return res.redirect(route);
   },
   // using passportJS to verify if user is logged in
@@ -22,7 +22,7 @@ module.exports = {
     if (req.isAuthenticated() && req.user.role === role) {
       return next();
     }
-    req.flash('error', message);
+    req.flash("error", message);
     return res.redirect(route);
-  },
+  }
 };

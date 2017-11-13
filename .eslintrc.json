@@ -1,6 +1,8 @@
 {
-    "extends": "airbnb-base",
-    "plugins": [
-        "import"
-    ]
+  "extends": "standard",
+  "rules": {
+    "quotes": ["error", "double"],
+    "semi": [2, "always"],
+    "comma-dangle": ["error", "never"]
+  }
 }

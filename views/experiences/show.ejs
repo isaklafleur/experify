@@ -3,44 +3,74 @@
     <%= result.name %>
   </h1>
   <hr>
-  <img class="img-responsive img-rounded" src="/<%= result.images %>"><br>
-  <h4><i class="fa fa-map-marker" aria-hidden="true"></i>
+  <img class="img-responsive img-rounded" src="/<%= result.images %>">
+  <br>
+  <h4>
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
     <%= result.address %>
   </h4>
   <div>
 
-    <strong>Hosted by: <a href="/profile/<%= result.user._id %>"><%= result.user.name %></a></strong><br>
+    <strong>Hosted by:
+      <a href="/profile/<%= result.user._id %>">
+        <%= result.user.name %>
+      </a>
+    </strong>
+    <br>
     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span><br><br>
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    <br>
+    <br>
     <% if(currentUser) { %>
 
       <div class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Contact Host <span class="caret"></span>
-  </button>
+          Contact Host
+          <span class="caret"></span>
+        </button>
         <ul class="dropdown-menu">
           <form action="/conversation/<%= result._id %>/new/<%= result.user._id %>" method="post">
             <textarea name="composedMessage" class="form-control" rows="5" placeholder="Please write a message host to start a chat"></textarea>
             <button class="btn btn-sm btn-success" style="margin-top: 5px;" type="submit">Start Chat!</button>
         </ul>
-      </div><br><br>
+      </div>
+      <br>
+      <br>
 
       <% } else { %>
-        <a class="btn btn-primary" href="/login">Please Login to Contact Host</a><br><br>
+        <a class="btn btn-primary" href="/login">Please Login to Contact Host</a>
+        <br>
+        <br>
         <% } %>
 
-          <strong><i class="fa fa-list" aria-hidden="true"></i> </strong>
-          <%= result.category %><br>
-            <strong><i class="fa fa-money" aria-hidden="true"></i> </strong>$
-            <%= result.price %> / person <br> 
-              <strong><i class="fa fa-info" aria-hidden="true"></i> </strong>
-              <%= result.description %><br>
-                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> </strong>
-                <%= result.duration %> hours<br>
-                  <strong><i class="fa fa-calendar" aria-hidden="true"></i> </strong>All days<br><br>
+          <strong>
+            <i class="fa fa-list" aria-hidden="true"></i>
+          </strong>
+          <%= result.category %>
+            <br>
+            <strong>
+              <i class="fa fa-money" aria-hidden="true"></i>
+            </strong>$
+            <%= result.price %> / person
+              <br>
+              <strong>
+                <i class="fa fa-info" aria-hidden="true"></i>
+              </strong>
+              <%= result.description %>
+                <br>
+                <strong>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                </strong>
+                <%= result.duration %> hours
+                  <br>
+                  <strong>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </strong>All days
+                  <br>
+                  <br>
                   <div id="map"></div>
                   <h3 id="experienceName" data-id="<%= result.id %>"></h3>
                   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbBJPvYIaR5ozIx_0-uWiGeO9cK4IxHww">

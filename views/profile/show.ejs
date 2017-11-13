@@ -5,72 +5,86 @@
   </h1>
   <hr>
   <% if (user.avatar) { %>
-     <img class="img-rounded img-responsive profile-img" src="/<%= user.avatar %>"><br>
+    <img class="img-rounded img-responsive profile-img" src="/<%= user.avatar %>">
+    <br>
     <% } %>
 
-  <% if (user.location.city) { %>
-    <h3>
-      <%= user.location.city%>,
-        <%= user.location.country %>
-    </h3>
-    <% } %>
-      <p>
-        <%= user.about %>
-      </p>
-      <a class="btn btn-warning" href="/profile/<%=user._id%>/edit">Edit Profile</a>
-      <a href="/experiences/new" class="btn btn-success">Add Experience</a><br>
+      <% if (user.location.city) { %>
+        <h3>
+          <%= user.location.city%>,
+            <%= user.location.country %>
+        </h3>
+        <% } %>
+          <p>
+            <%= user.about %>
+          </p>
+          <a class="btn btn-warning" href="/profile/<%=user._id%>/edit">Edit Profile</a>
+          <a href="/experiences/new" class="btn btn-success">Add Experience</a>
+          <br>
 
-      <hr>
-      <h3>My Experiences</h3>
-      <% user.experiences.forEach(experience => { %>
-        <h4>
-          <a href="/experiences/<%= experience._id %>">
-            <%= experience.name %>
-          </a>
-        </h4>
-        <strong>Description: </strong>
-        <%= experience.description %><br>
-          <img class="img-responsive" src="/<%= experience.images %>"><br><br>
-          <a class="btn btn-warning" href="/experiences/<%= experience._id %>/edit">Edit</a>
-          
-          <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%= experience._id %>">
-  Delete
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="<%= experience._id %>" tabindex="-1" role="dialog" aria-labelledby="<%= experience._id %>">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="<%= experience._id %>">Do you really want to delete your Experience <%= experience.name %>?</h4>
-      </div>
-      <div class="modal-body">
-        Click Delete again to remove it or Cancel to go back.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-danger" href="/experiences/<%= experience._id %>/delete">Delete</a>
-      </div>
-    </div>
-  </div>
-</div>
-          
-          
           <hr>
-          <% }) %>
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <h3>Reviews From Experifiers (63)</h3><br>
+          <h3>My Experiences</h3>
+          <% user.experiences.forEach(experience => { %>
+            <h4>
+              <a href="/experiences/<%= experience._id %>">
+                <%= experience.name %>
+              </a>
+            </h4>
+            <strong>Description: </strong>
+            <%= experience.description %>
+              <br>
+              <img class="img-responsive" src="/<%= experience.images %>">
+              <br>
+              <br>
+              <a class="btn btn-warning" href="/experiences/<%= experience._id %>/edit">Edit</a>
+
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%= experience._id %>">
+                Delete
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="<%= experience._id %>" tabindex="-1" role="dialog" aria-labelledby="<%= experience._id %>">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h4 class="modal-title" id="<%= experience._id %>">Do you really want to delete your Experience
+                        <%= experience.name %>?</h4>
+                    </div>
+                    <div class="modal-body">
+                      Click Delete again to remove it or Cancel to go back.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-danger" href="/experiences/<%= experience._id %>/delete">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
 
-            <a href="#"><img style="zoom: 50%;" src="/images/profile_round.png"><br><strong>John</strong></a>
-            <p>Good intimate jazz performance. Started on time but the band, singer and fellow travelers were not introduced
-              as one would think for this type of experience. The house dog roaming and trying to eat guests food was also
-              distracting.</p>
-            ... ...
+              <hr>
+              <% }) %>
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <h3>Reviews From Experifiers (63)</h3>
+                <br>
+
+
+                <a href="#">
+                  <img style="zoom: 50%;" src="/images/profile_round.png">
+                  <br>
+                  <strong>John</strong>
+                </a>
+                <p>Good intimate jazz performance. Started on time but the band, singer and fellow travelers were not introduced
+                  as one would think for this type of experience. The house dog roaming and trying to eat guests food was
+                  also distracting.
+                </p>
+                ... ...
 </div>

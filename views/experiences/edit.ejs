@@ -3,23 +3,29 @@
   <hr>
   <form class="form-signin" action="/experiences/<%= result._id %>" method="post" enctype="multipart/form-data">
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-eye fa-fw"></i>
+      </span>
       <input class="form-control" type="text" name="name" value="<%= result.name %>" placeholder="Title of your Experience" required
         autofocus>
     </div>
     <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer"
       required><%= result.description %></textarea>
 
-<div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-<label class="btn btn-success btn-file" style="margin: 2px;">
-  Browse 
-<input class="form-control" name="images" value="<%= result.images %>" type="file" style="display: none;">
-</label>
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon">
+        <i class="fa fa-camera-retro fa-fw"></i>
+      </span>
+      <label class="btn btn-success btn-file" style="margin: 2px;">
+        Browse
+        <input class="form-control" name="images" value="<%= result.images %>" type="file" style="display: none;">
+      </label>
     </div>
 
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-map-marker fa-fw"></i>
+      </span>
       <input class="form-control" type="text" name="address" value="<%= result.address %>" id="searchTextField" placeholder="Location"
         required>
     </div>
@@ -27,28 +33,39 @@
     <input id="long" type="hidden" class="form-control" name="long">
 
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-usd fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-usd fa-fw"></i>
+      </span>
       <input class="form-control" type="number" name="price" value="<%= result.price %>" placeholder="Price per person" required>
     </div>
 
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-clock-o fa-fw"></i>
+      </span>
       <input class="form-control" type="number" name="duration" value="<%= result.duration %>" placeholder="Duration (hours)" required>
     </div>
 
-    <select class="form-control" name="category" value="<%= result.category %>" required> <!--Supplement an id here instead of using 'name'-->
-    <option value="">Category</option>
-    <% categories.forEach(category => { %>
-    <% if (category == result.category) { %>
-      <option value="<%= result.category %>" selected="selected"><%= result.category %></option>
-    <% } else { %>
-      <option value="<%= category %>"><%= category %></option>
-    <% } %>
-    <% }); %>
-    </select><br>
+    <select class="form-control" name="category" value="<%= result.category %>" required>
+      <!--Supplement an id here instead of using 'name'-->
+      <option value="">Category</option>
+      <% categories.forEach(category => { %>
+        <% if (category == result.category) { %>
+          <option value="<%= result.category %>" selected="selected">
+            <%= result.category %>
+          </option>
+          <% } else { %>
+            <option value="<%= category %>">
+              <%= category %>
+            </option>
+            <% } %>
+              <% }); %>
+    </select>
+    <br>
     <input class="form-control" name="imagestemp" type="hidden" value="<%= result.images %>" type="text">
     <input class="form-control" name="imagesName" type="hidden" value="<%= result.imagesName %>" type="text">
-        <button class="btn btn-lg btn-success btn-block" type="submit">Update</button><br>
+    <button class="btn btn-lg btn-success btn-block" type="submit">Update</button>
+    <br>
   </form>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzZ_vMmKMZeivRsR3pp-ZM4cWviVEkG1c&libraries=places" async

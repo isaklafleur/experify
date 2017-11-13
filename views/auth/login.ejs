@@ -1,15 +1,23 @@
 <form class="form-signin" action="/login" method="POST">
   <h2 class="form-signin-heading">Please Log in</h2>
-  <a href="/auth/facebook">Log in with Facebook</a><br><br>
+  <a href="/auth/facebook">Log in with Facebook</a>
+  <br>
+  <br>
 
   <div class="input-group margin-bottom-sm">
-    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+    <span class="input-group-addon">
+      <i class="fa fa-envelope-o fa-fw"></i>
+    </span>
     <input class="form-control" type="email" name="email" placeholder="Email address" autofocus required>
   </div>
   <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+    <span class="input-group-addon">
+      <i class="fa fa-key fa-fw"></i>
+    </span>
     <input class="form-control" name="password" type="password" placeholder="Password" required>
-  </div><br>
+  </div>
+  <br>
   <button class="btn btn-lg btn-success btn-block" type="submit">Log in</button>
-  <br> Do you want to <a href="/signup">Sign up</a>?
+  <br> Do you want to
+  <a href="/signup">Sign up</a>?
 </form>

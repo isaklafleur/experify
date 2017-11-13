@@ -3,40 +3,51 @@
   <hr>
   <form class="form-signin" action="/experiences" method="post" enctype="multipart/form-data">
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-eye fa-fw"></i>
+      </span>
       <input class="form-control" type="text" name="name" placeholder="Title of your Experience" required autofocus>
     </div>
     <textarea class="form-control" rows="10" name="description" placeholder="Write some lines about the Experience you offer"
       required></textarea>
 
-<div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-camera-retro fa-fw"></i></span>
-<label class="btn btn-success btn-file" style="margin: 2px;">
-  Browse 
-<input class="form-control" name="images" type="file" style="display: none;">
-</label>
+    <div class="input-group margin-bottom-sm">
+      <span class="input-group-addon">
+        <i class="fa fa-camera-retro fa-fw"></i>
+      </span>
+      <label class="btn btn-success btn-file" style="margin: 2px;">
+        Browse
+        <input class="form-control" name="images" type="file" style="display: none;">
+      </label>
     </div>
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-map-marker fa-fw"></i>
+      </span>
       <input class="form-control" type="text" name="address" id="searchTextField" placeholder="Location" required>
     </div>
     <input id="lat" type="hidden" class="form-control" name="lat">
     <input id="long" type="hidden" class="form-control" name="long">
 
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-usd fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-usd fa-fw"></i>
+      </span>
       <input class="form-control" type="number" name="price" placeholder="Price per person" required>
     </div>
 
     <div class="input-group margin-bottom-sm">
-      <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+      <span class="input-group-addon">
+        <i class="fa fa-clock-o fa-fw"></i>
+      </span>
       <input class="form-control" type="number" name="duration" placeholder="Duration (hours)" required>
     </div>
 
-    <select class="form-control" name="category" required> <!--Supplement an id here instead of using 'name'-->
-      <option value="">Category</option> 
-      <option value="Arts">Arts</option> 
-      <option value="Entertainment" >Entertainment</option>
+    <select class="form-control" name="category" required>
+      <!--Supplement an id here instead of using 'name'-->
+      <option value="">Category</option>
+      <option value="Arts">Arts</option>
+      <option value="Entertainment">Entertainment</option>
       <option value="Fashion">Fashion</option>
       <option value="Food & Drink">Food & Drink</option>
       <option value="Lifestyle">Lifestyle</option>
@@ -46,14 +57,16 @@
       <option value="Sports">Sports</option>
       <option value="Technology">Technology</option>
       <option value="Wellness">Wellness</option>
-    </select><br>
+    </select>
+    <br>
 
     <% if (typeof(errorMessage) != "undefined") { %>
       <div class="error-message">
         <%= errorMessage %>
       </div>
       <% } %>
-        <button class="btn btn-lg btn-success btn-block" type="submit">Create</button><br>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Create</button>
+        <br>
   </form>
 
   <% if (typeof(errorMessage) != "undefined") { %>

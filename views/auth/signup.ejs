@@ -1,22 +1,29 @@
 <form class="form-signin" action="/signup" method="POST">
   <h2 class="form-signin-heading">Please Sign up</h2>
   <div class="input-group margin-bottom-sm">
-    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+    <span class="input-group-addon">
+      <i class="fa fa-envelope-o fa-fw"></i>
+    </span>
     <input class="form-control" type="email" name="email" placeholder="Email address" required autofocus>
   </div>
   <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+    <span class="input-group-addon">
+      <i class="fa fa-key fa-fw"></i>
+    </span>
     <input class="form-control" name="password" type="password" placeholder="Password" required>
   </div>
   <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+    <span class="input-group-addon">
+      <i class="fa fa-user fa-fw"></i>
+    </span>
     <input class="form-control" name="name" type="text" placeholder="Name" required>
-  </div><br>
+  </div>
   <br>
-      <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
-      <br>
-      <p class="account-message">
-        Do you already have an account?
-        <a href="/login">Login</a>
-      </p>
+  <br>
+  <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
+  <br>
+  <p class="account-message">
+    Do you already have an account?
+    <a href="/login">Login</a>
+  </p>
 </form>
