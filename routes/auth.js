@@ -28,28 +28,32 @@ router.post("/signup", (req, res, next) => {
   }
 
   User.findOne({ email }, "email", (err, user) => {
-    if (user !== null) {
-      res.render("auth/signup", {
-        error: "This email already exists in our database :-("
-      });
-      return;
-    }
-    const bcryptSalt = 10;
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
-
-    const newUser = User({ name, email, password: hashPass });
-
-    newUser.save(err => {
-      if (err) {
-        res.render("auth/signup", { error: `Something went wrong: ${err}` });
-      } else {
-        passport.authenticate("local")(req, res, () => {
-          req.flash("success", `Welcome to Experify ${newUser.name} :-)`);
-          res.redirect("/profile");
+    if (err) {
+      next(err);
+    } else {
+      if (user !== null) {
+        res.render("auth/signup", {
+          error: "This email already exists in our database :-("
         });
+        return;
       }
-    });
+      const bcryptSalt = 10;
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
+      const newUser = User({ name, email, password: hashPass });
+
+      newUser.save(err => {
+        if (err) {
+          res.render("auth/signup", { error: `Something went wrong: ${err}` });
+        } else {
+          passport.authenticate("local")(req, res, () => {
+            req.flash("success", `Welcome to Experify ${newUser.name} :-)`);
+            res.redirect("/profile");
+          });
+        }
+      });
+    }
   });
 });
 
