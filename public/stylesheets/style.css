@@ -4,7 +4,7 @@ body {
 }
 
 button:focus {
-    outline: 0 !important;
+  outline: 0 !important;
 }
 
 #m {
@@ -80,7 +80,9 @@ button:focus {
   min-height: 330px !important;
 }
 
+
 /* SETTINGS FOR ALL FORMS */
+
 .form-signin {
   max-width: 400px;
   padding: 15px;

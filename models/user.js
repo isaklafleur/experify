@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -11,12 +11,12 @@ const UserSchema = new Schema({
   facebookId: Number,
   location: {
     city: { type: String },
-    country: { type: String },
+    country: { type: String }
   },
-  experiences: [{ type: Schema.Types.ObjectId, ref: 'Experience' }],
+  experiences: [{ type: Schema.Types.ObjectId, ref: "Experience" }]
 },
-  {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-  });
+{
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+});
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);
